@@ -21,6 +21,11 @@ import prettify.Lang;
 import prettify.Prettify;
 
 /**
+ * This is similar to the lang-tex.js in JavaScript Prettify.
+ * 
+ * All comments are adapted from the JavaScript Prettify.
+ * 
+ * <p>
  * Support for tex highlighting as discussed on
  * <a href="http://meta.tex.stackexchange.com/questions/872/text-immediate-following-double-backslashes-is-highlighted-as-macro-inside-a-code/876#876">meta.tex.stackexchange.com</a>.
  *

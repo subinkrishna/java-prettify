@@ -21,6 +21,11 @@ import prettify.Lang;
 import prettify.Prettify;
 
 /**
+ * This is similar to the lang-scala.js in JavaScript Prettify.
+ * 
+ * All comments are adapted from the JavaScript Prettify.
+ * 
+ * <p>
  * Registers a language handler for Scala.
  *
  * Derived from http://lampsvn.epfl.ch/svn-repos/scala/scala-documentation/trunk/src/reference/SyntaxSummary.tex

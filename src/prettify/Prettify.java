@@ -41,7 +41,13 @@ import prettify.lang.LangXq;
 import prettify.lang.LangYaml;
 
 /**
- * some functions for browser-side pretty printing of code contained in html.
+ * This is similar to the prettify.js in JavaScript Prettify.
+ * 
+ * All comments are adapted from the JavaScript Prettify.
+ * 
+ * <p>
+ * Some functions for browser-side pretty printing of code contained in html.
+ * </p>
  *
  * <p>
  * For a fairly comprehensive set of languages see the

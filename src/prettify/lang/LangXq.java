@@ -21,6 +21,11 @@ import prettify.Lang;
 import prettify.Prettify;
 
 /**
+ * This is similar to the lang-xq.js in JavaScript Prettify.
+ * 
+ * All comments are adapted from the JavaScript Prettify.
+ * 
+ * <p>
  * Registers a language handler for XQuery.
  *
  * To use, include prettify.js and this file in your HTML page.

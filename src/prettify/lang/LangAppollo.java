@@ -21,6 +21,11 @@ import prettify.Lang;
 import prettify.Prettify;
 
 /**
+ * This is similar to the lang-appollo.js in JavaScript Prettify.
+ * 
+ * All comments are adapted from the JavaScript Prettify.
+ * 
+ * <p>
  * Registers a language handler for the AGC/AEA Assembly Language as described
  * at http://virtualagc.googlecode.com
  * <p>

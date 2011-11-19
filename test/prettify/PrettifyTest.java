@@ -28,6 +28,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/**
+ * Tests are adapted from JavaScript Prettify.
+ * @author Chan Wai Shing <cws1989@gmail.com>
+ */
 public class PrettifyTest {
 
     static {
@@ -64,13 +68,23 @@ public class PrettifyTest {
     public void tearDown() {
     }
 
-    public void test(String extension, String code, boolean removeNewLine) throws IOException {
+    /**
+     * Do test. The Java Prettify line numbering is different from JavaScript Prettify. If the result is adapted 
+     * from JavaScript Prettify tests and that {@code resultText} have line numbering, set {@code removeNewLines} 
+     * to true.
+     * @param extension the file name of the source file
+     * @param code the source code
+     * @param removeJSLineNumbering true to remove new line and combine identical adjacent tag
+     * @throws IOException error occurred when reading source or result file
+     */
+    public void test(String extension, String code, boolean removeJSLineNumbering) throws IOException {
         String source = new String(readFile(new File(packagePath + "source/" + code + ".txt")), "UTF-8");
         Job job = new Job(0, source);
         prettify.langHandlerForExtension(extension, source).decorate(job);
-        List<Object> decorations = removeNewLine ? removeNewLine(job.getDecorations(), source) : job.getDecorations();
-        List<Object> compare = readResult(new String(readFile(new File(packagePath + "result/" + code + ".txt")), "UTF-8").replace("&lt;", "<").replace("&gt;", ">").replace("&nbsp;", " ").replace("&amp;", "&"), removeNewLine);
-        assertArrayEquals(code + "\n" + compare + "\n" + decorations, compare.toArray(), decorations.toArray());
+        List<Object> decorations = removeJSLineNumbering ? removeNewLines(job.getDecorations(), source) : job.getDecorations();
+        List<Object> compare = readResult(new String(readFile(new File(packagePath + "result/" + code + ".txt")), "UTF-8").replace("&lt;", "<").replace("&gt;", ">").replace("&nbsp;", " ").replace("&amp;", "&"), removeJSLineNumbering);
+//        assertArrayEquals(code + "\n" + compare + "\n" + decorations, compare.toArray(), decorations.toArray()); // for debug
+        assertArrayEquals(extension, compare.toArray(), decorations.toArray());
     }
 
     @Test
@@ -169,73 +183,101 @@ public class PrettifyTest {
         return content;
     }
 
-    public static List<Object> removeNewLine(List<Object> decorations, String source) {
+    /**
+     * Determine the positions of new line characters in {@code source} and adjust the position 
+     * value in {@code decorations}. Finally, it will combine adjacent identical tags.
+     * @param decorations see {@link prettify.Job#decorations}
+     * @param source the source code in string
+     * @return the adjusted list of {@code decorations}
+     */
+    public static List<Object> removeNewLines(List<Object> decorations, String source) {
+        if (decorations == null) {
+            throw new NullPointerException("argument 'decorations' cannot be null");
+        }
+        if (source == null) {
+            throw new NullPointerException("argument 'source' cannot be null");
+        }
+
+        List<Object> _decorations = new ArrayList<Object>(decorations);
+
         StringBuffer sb = new StringBuffer();
-        Pattern pattern = Pattern.compile("\r\n");
+        Pattern pattern = Pattern.compile("[\r\n]");
         Matcher matcher = pattern.matcher(source);
         while (matcher.find()) {
             matcher.appendReplacement(sb, "");
+
             int posStart = sb.length();
-            ListIterator<Object> iterator = decorations.listIterator();
+            ListIterator<Object> iterator = _decorations.listIterator();
             while (iterator.hasNext()) {
                 Integer pos = (Integer) iterator.next();
                 if (pos > posStart) {
-                    iterator.set(pos - 2);
+                    iterator.set(pos - 1);
                 }
                 iterator.next();
             }
         }
 //        matcher.appendTail(sb);
 
-        return Util.removeDuplicates(decorations, source);
+        return Util.removeDuplicates(_decorations, source);
     }
 
-    public static List<Object> readResult(String result) {
-        return readResult(result, false);
-    }
+    /**
+     * Parse the {@code resultText}. The Java Prettify line numbering is different from JavaScript Prettify.
+     * If the result is adapted from JavaScript Prettify tests and that {@code resultText} have line numbering,
+     * set {@code removeNewLines} to true. Also, the {@code resultText} should not escape html special
+     * characters.
+     * @param resultText the result in string
+     * @param removeJSLineNumbering true to remove new line and combine identical adjacent tag
+     * @return the parsed result with format similar to {@link prettify.Job#decorations}
+     */
+    public static List<Object> readResult(String resultText, boolean removeJSLineNumbering) {
+        if (resultText == null) {
+            throw new NullPointerException("argument 'resultText' cannot be null");
+        }
 
-    public static List<Object> readResult(String result, boolean removeNewLine) {
         List<Object> returnList = new ArrayList<Object>();
 
-        int count = 0;
+        if (removeJSLineNumbering) {
+            resultText = resultText.replaceAll("[\r\n]", "");
 
-        if (removeNewLine) {
             StringBuffer sb = new StringBuffer();
-            result = result.replaceAll("[\r\n]", "");
             Pattern pattern = Pattern.compile("(`[A-Z]{3})([^`]+?)`END\\1([^`]+?)`END", Pattern.MULTILINE | Pattern.DOTALL);
-            Matcher matcher = pattern.matcher(result);
-            boolean found = false;
+            Matcher matcher = pattern.matcher(resultText);
             while (matcher.find()) {
                 matcher.appendReplacement(sb, "");
                 sb.append(matcher.group(1)).append(matcher.group(2)).append(matcher.group(3)).append("`END");
-                found = true;
             }
             matcher.appendTail(sb);
-            result = sb.toString();
+
+            resultText = sb.toString();
         }
 
-        StringBuffer sb = new StringBuffer(); // for debug
+        int count = 0;
         Pattern pattern = Pattern.compile("`([A-Z]{3})(.+?)`END", Pattern.MULTILINE | Pattern.DOTALL);
-        Matcher matcher = pattern.matcher(result);
+        Matcher matcher = pattern.matcher(resultText);
         while (matcher.find()) {
-            matcher.appendReplacement(sb, ""); // for debug
-            sb.append(matcher.group(2)); // for debug
-
             returnList.add(count);
             returnList.add(matcher.group(1).toLowerCase());
             count += matcher.group(2).length();
         }
-        matcher.appendTail(sb);
-        String plainCode = sb.toString(); // for debug
 
-        returnList = Util.removeDuplicates(returnList, result);
+        returnList = Util.removeDuplicates(returnList, resultText);
 
         // for debug
+//        StringBuffer sb = new StringBuffer();
+//        matcher = pattern.matcher(resultText);
+//        while (matcher.find()) {
+//            matcher.appendReplacement(sb, "");
+//            sb.append(matcher.group(2));
+//        }
+//        matcher.appendTail(sb);
+//        String plainCode = sb.toString();
+//
 //        System.out.println(plainCode);
-//        for (int i = 0, iEnd = returnList.size(); i < iEnd; i++) {
+//
+//        for (int i = 0, iEnd = returnList.size(); i < iEnd; i += 2) {
 //            int end = i + 2 < iEnd ? (Integer) returnList.get(i + 2) : plainCode.length();
 //            System.out.println(returnList.get(i) + ": " + returnList.get(i + 1) + ": " + plainCode.substring((Integer) returnList.get(i), end));
-//            i++;
 //        }
 
         return returnList;

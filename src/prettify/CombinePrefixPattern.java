@@ -25,6 +25,9 @@ import java.util.regex.Pattern;
 
 /**
  * This is similar to the combinePrefixPattern.js in JavaScript Prettify.
+ * 
+ * All comments are adapted from the JavaScript Prettify.
+ * 
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class CombinePrefixPattern {

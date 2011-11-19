@@ -22,16 +22,34 @@ import java.util.List;
  */
 public abstract class Lang {
 
+    /**
+     * Similar to those in JavaScript prettify.js.
+     */
     protected List<List<Object>> shortcutStylePatterns;
+    /**
+     * Similar to those in JavaScript prettify.js.
+     */
     protected List<List<Object>> fallthroughStylePatterns;
+    /**
+     * See {@link prettify.lang.LangCss} for example.
+     */
     protected List<Lang> extendedLangs;
 
+    /**
+     * Constructor.
+     */
     public Lang() {
         shortcutStylePatterns = new ArrayList<List<Object>>();
         fallthroughStylePatterns = new ArrayList<List<Object>>();
         extendedLangs = new ArrayList<Lang>();
     }
 
+    /**
+     * This method should be overridden by the child class.
+     * This provide the file extensions list to help to determine which {@link Lang} to use.
+     * See JavaScript prettify.js.
+     * @return the list of file extensions
+     */
     public static List<String> getFileExtensions() {
         return new ArrayList<String>();
     }
@@ -76,10 +94,20 @@ public abstract class Lang {
         this.fallthroughStylePatterns = cloneList;
     }
 
+    /**
+     * Get the extended languages list.
+     * @return the list
+     */
     public List<Lang> getExtendedLangs() {
         return new ArrayList<Lang>(extendedLangs);
     }
 
+    /**
+     * Set extended languages. Because we cannot register multiple languages within 
+     * one {@link prettify.Lang}, so it is used as an solution.
+     * See {@link prettify.lang.LangCss} for example.
+     * @param extendedLangs the list of {@link prettify.Lang}s
+     */
     public void setExtendedLangs(List<Lang> extendedLangs) {
         this.extendedLangs = new ArrayList<Lang>(extendedLangs);
     }
