@@ -84,7 +84,7 @@ public class PrettifyTest {
         List<Object> decorations = removeJSLineNumbering ? removeNewLines(job.getDecorations(), source) : job.getDecorations();
         List<Object> compare = readResult(new String(readFile(new File(packagePath + "result/" + code + ".txt")), "UTF-8").replace("&lt;", "<").replace("&gt;", ">").replace("&nbsp;", " ").replace("&amp;", "&"), removeJSLineNumbering);
 //        assertArrayEquals(code + "\n" + compare + "\n" + decorations, compare.toArray(), decorations.toArray()); // for debug
-        assertArrayEquals(extension, compare.toArray(), decorations.toArray());
+        assertArrayEquals(code, compare.toArray(), decorations.toArray());
     }
 
     @Test
@@ -123,6 +123,7 @@ public class PrettifyTest {
         test(null, "issue4", false);
         test("el", "issue42", false);
         test(null, "issue45", false);
+        test(null, "issue79", false);
         test(null, "issue8", false);
         test("java", "issue84", false);
         test(null, "issue92", false);
@@ -137,9 +138,6 @@ public class PrettifyTest {
         test(null, "xsl", false);
         test("yaml", "yaml1", false);
         test("yaml", "yaml2", false);
-
-        // only source but no result is provided from JavaScript Prettify
-//        test(null, "issue79", false);
     }
 
     /**
