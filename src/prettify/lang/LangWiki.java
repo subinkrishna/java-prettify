@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
-import prettify.Lang;
-import prettify.Prettify;
+import prettify.parser.Prettify;
 
 /**
  * This is similar to the lang-wiki.js in JavaScript Prettify.
@@ -34,50 +33,50 @@ import prettify.Prettify;
  */
 public class LangWiki extends Lang {
 
-    public LangWiki() {
-        List<List<Object>> _shortcutStylePatterns = new ArrayList<List<Object>>();
-        List<List<Object>> _fallthroughStylePatterns = new ArrayList<List<Object>>();
+  public LangWiki() {
+    List<List<Object>> _shortcutStylePatterns = new ArrayList<List<Object>>();
+    List<List<Object>> _fallthroughStylePatterns = new ArrayList<List<Object>>();
 
-        // Whitespace
-        _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^[\\t \\xA0a-gi-z0-9]+"), null, "\t " + Character.toString((char) 0xA0) + "abcdefgijklmnopqrstuvwxyz0123456789"}));
-        // Wiki formatting
-        _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PUNCTUATION, Pattern.compile("^[=*~\\^\\[\\]]+"), null, "=*~^[]"}));
-        // Meta-info like #summary, #labels, etc.
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{"lang-wiki.meta", Pattern.compile("(?:^^|\r\n?|\n)(#[a-z]+)\\b")}));
-        // A WikiWord
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("^(?:[A-Z][a-z][a-z0-9]+[A-Z][a-z][a-zA-Z0-9]+)\\b")}));
-        // A preformatted block in an unknown language
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{"lang-", Pattern.compile("^\\{\\{\\{([\\s\\S]+?)\\}\\}\\}")}));
-        // A block of source code in an unknown language
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{"lang-", Pattern.compile("^`([^\r\n`]+)`")}));
-        // An inline URL.
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_STRING, Pattern.compile("^https?:\\/\\/[^\\/?#\\s]*(?:\\/[^?#\\s]*)?(?:\\?[^#\\s]*)?(?:#\\S*)?", Pattern.CASE_INSENSITIVE)}));
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^(?:\r\n|[\\s\\S])[^#=*~^A-Zh\\{`\\[\r\n]*")}));
+    // Whitespace
+    _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^[\\t \\xA0a-gi-z0-9]+"), null, "\t " + Character.toString((char) 0xA0) + "abcdefgijklmnopqrstuvwxyz0123456789"}));
+    // Wiki formatting
+    _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PUNCTUATION, Pattern.compile("^[=*~\\^\\[\\]]+"), null, "=*~^[]"}));
+    // Meta-info like #summary, #labels, etc.
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{"lang-wiki.meta", Pattern.compile("(?:^^|\r\n?|\n)(#[a-z]+)\\b")}));
+    // A WikiWord
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("^(?:[A-Z][a-z][a-z0-9]+[A-Z][a-z][a-zA-Z0-9]+)\\b")}));
+    // A preformatted block in an unknown language
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{"lang-", Pattern.compile("^\\{\\{\\{([\\s\\S]+?)\\}\\}\\}")}));
+    // A block of source code in an unknown language
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{"lang-", Pattern.compile("^`([^\r\n`]+)`")}));
+    // An inline URL.
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_STRING, Pattern.compile("^https?:\\/\\/[^\\/?#\\s]*(?:\\/[^?#\\s]*)?(?:\\?[^#\\s]*)?(?:#\\S*)?", Pattern.CASE_INSENSITIVE)}));
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^(?:\r\n|[\\s\\S])[^#=*~^A-Zh\\{`\\[\r\n]*")}));
 
-        setShortcutStylePatterns(_shortcutStylePatterns);
-        setFallthroughStylePatterns(_fallthroughStylePatterns);
+    setShortcutStylePatterns(_shortcutStylePatterns);
+    setFallthroughStylePatterns(_fallthroughStylePatterns);
 
-        setExtendedLangs(Arrays.asList(new Lang[]{new LangWikiMeta()}));
+    setExtendedLangs(Arrays.asList(new Lang[]{new LangWikiMeta()}));
+  }
+
+  public static List<String> getFileExtensions() {
+    return Arrays.asList(new String[]{"wiki"});
+  }
+
+  protected static class LangWikiMeta extends Lang {
+
+    public LangWikiMeta() {
+      List<List<Object>> _shortcutStylePatterns = new ArrayList<List<Object>>();
+      List<List<Object>> _fallthroughStylePatterns = new ArrayList<List<Object>>();
+
+      _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_KEYWORD, Pattern.compile("^#[a-z]+", Pattern.CASE_INSENSITIVE), null, "#"}));
+
+      setShortcutStylePatterns(_shortcutStylePatterns);
+      setFallthroughStylePatterns(_fallthroughStylePatterns);
     }
 
     public static List<String> getFileExtensions() {
-        return Arrays.asList(new String[]{"wiki"});
+      return Arrays.asList(new String[]{"wiki.meta"});
     }
-
-    protected static class LangWikiMeta extends Lang {
-
-        public LangWikiMeta() {
-            List<List<Object>> _shortcutStylePatterns = new ArrayList<List<Object>>();
-            List<List<Object>> _fallthroughStylePatterns = new ArrayList<List<Object>>();
-
-            _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_KEYWORD, Pattern.compile("^#[a-z]+", Pattern.CASE_INSENSITIVE), null, "#"}));
-
-            setShortcutStylePatterns(_shortcutStylePatterns);
-            setFallthroughStylePatterns(_fallthroughStylePatterns);
-        }
-
-        public static List<String> getFileExtensions() {
-            return Arrays.asList(new String[]{"wiki.meta"});
-        }
-    }
+  }
 }

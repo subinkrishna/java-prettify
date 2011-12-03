@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
-import prettify.Lang;
-import prettify.Prettify;
+import prettify.parser.Prettify;
 
 /**
  * This is similar to the lang-lua.js in JavaScript Prettify.
@@ -43,33 +42,33 @@ import prettify.Prettify;
  */
 public class LangLua extends Lang {
 
-    public LangLua() {
-        List<List<Object>> _shortcutStylePatterns = new ArrayList<List<Object>>();
-        List<List<Object>> _fallthroughStylePatterns = new ArrayList<List<Object>>();
+  public LangLua() {
+    List<List<Object>> _shortcutStylePatterns = new ArrayList<List<Object>>();
+    List<List<Object>> _fallthroughStylePatterns = new ArrayList<List<Object>>();
 
-        // Whitespace
-        _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^[\t\n\r \\xA0]+"), null, "\t\n\r " + Character.toString((char) 0xA0)}));
-        // A double or single quoted, possibly multi-line, string.
-        _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_STRING, Pattern.compile("^(?:\\\"(?:[^\\\"\\\\]|\\\\[\\s\\S])*(?:\\\"|$)|\\'(?:[^\\'\\\\]|\\\\[\\s\\S])*(?:\\'|$))"), null, "\"'"}));
-        // A comment is either a line comment that starts with two dashes, or
-        // two dashes preceding a long bracketed block.
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_COMMENT, Pattern.compile("^--(?:\\[(=*)\\[[\\s\\S]*?(?:\\]\\1\\]|$)|[^\\r\\n]*)")}));
-        // A long bracketed block not preceded by -- is a string.
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_STRING, Pattern.compile("^\\[(=*)\\[[\\s\\S]*?(?:\\]\\1\\]|$)")}));
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_KEYWORD, Pattern.compile("^(?:and|break|do|else|elseif|end|false|for|function|if|in|local|nil|not|or|repeat|return|then|true|until|while)\\b"), null}));
-        // A number is a hex integer literal, a decimal real literal, or in
-        // scientific notation.
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("^[+-]?(?:0x[\\da-f]+|(?:(?:\\.\\d+|\\d+(?:\\.\\d*)?)(?:e[+\\-]?\\d+)?))", Pattern.CASE_INSENSITIVE)}));
-        // An identifier
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^[a-z_]\\w*", Pattern.CASE_INSENSITIVE)}));
-        // A run of punctuation
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PUNCTUATION, Pattern.compile("^[^\\w\\t\\n\\r \\xA0][^\\w\\n\\r \\xA0\\\"\\'\\-\\+=]*")}));
+    // Whitespace
+    _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^[\t\n\r \\xA0]+"), null, "\t\n\r " + Character.toString((char) 0xA0)}));
+    // A double or single quoted, possibly multi-line, string.
+    _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_STRING, Pattern.compile("^(?:\\\"(?:[^\\\"\\\\]|\\\\[\\s\\S])*(?:\\\"|$)|\\'(?:[^\\'\\\\]|\\\\[\\s\\S])*(?:\\'|$))"), null, "\"'"}));
+    // A comment is either a line comment that starts with two dashes, or
+    // two dashes preceding a long bracketed block.
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_COMMENT, Pattern.compile("^--(?:\\[(=*)\\[[\\s\\S]*?(?:\\]\\1\\]|$)|[^\\r\\n]*)")}));
+    // A long bracketed block not preceded by -- is a string.
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_STRING, Pattern.compile("^\\[(=*)\\[[\\s\\S]*?(?:\\]\\1\\]|$)")}));
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_KEYWORD, Pattern.compile("^(?:and|break|do|else|elseif|end|false|for|function|if|in|local|nil|not|or|repeat|return|then|true|until|while)\\b"), null}));
+    // A number is a hex integer literal, a decimal real literal, or in
+    // scientific notation.
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("^[+-]?(?:0x[\\da-f]+|(?:(?:\\.\\d+|\\d+(?:\\.\\d*)?)(?:e[+\\-]?\\d+)?))", Pattern.CASE_INSENSITIVE)}));
+    // An identifier
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^[a-z_]\\w*", Pattern.CASE_INSENSITIVE)}));
+    // A run of punctuation
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PUNCTUATION, Pattern.compile("^[^\\w\\t\\n\\r \\xA0][^\\w\\n\\r \\xA0\\\"\\'\\-\\+=]*")}));
 
-        setShortcutStylePatterns(_shortcutStylePatterns);
-        setFallthroughStylePatterns(_fallthroughStylePatterns);
-    }
+    setShortcutStylePatterns(_shortcutStylePatterns);
+    setFallthroughStylePatterns(_fallthroughStylePatterns);
+  }
 
-    public static List<String> getFileExtensions() {
-        return Arrays.asList(new String[]{"lua"});
-    }
+  public static List<String> getFileExtensions() {
+    return Arrays.asList(new String[]{"lua"});
+  }
 }

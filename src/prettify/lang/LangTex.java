@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
-import prettify.Lang;
-import prettify.Prettify;
+import prettify.parser.Prettify;
 
 /**
  * This is similar to the lang-tex.js in JavaScript Prettify.
@@ -33,32 +32,32 @@ import prettify.Prettify;
  */
 public class LangTex extends Lang {
 
-    public LangTex() {
-        List<List<Object>> _shortcutStylePatterns = new ArrayList<List<Object>>();
-        List<List<Object>> _fallthroughStylePatterns = new ArrayList<List<Object>>();
+  public LangTex() {
+    List<List<Object>> _shortcutStylePatterns = new ArrayList<List<Object>>();
+    List<List<Object>> _fallthroughStylePatterns = new ArrayList<List<Object>>();
 
-        // whitespace
-        _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^[\\t\\n\\r \\xA0]+"), null, "\t\n\r " + Character.toString((char) 0xA0)}));
-        // all comments begin with '%'
-        _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_COMMENT, Pattern.compile("^%[^\\r\\n]*"), null, "%"}));
-        //[PR['PR_DECLARATION'], /^\\([egx]?def|(new|renew|provide)(command|environment))\b/],
-        // any command starting with a \ and contains
-        // either only letters (a-z,A-Z), '@' (internal macros)
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_KEYWORD, Pattern.compile("^\\\\[a-zA-Z@]+")}));
-        // or contains only one character
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_KEYWORD, Pattern.compile("^\\\\.")}));
-        // Highlight dollar for math mode and ampersam for tabular
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_TYPE, Pattern.compile("^[$&]")}));
-        // numeric measurement values with attached units
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("[+-]?(?:\\.\\d+|\\d+(?:\\.\\d*)?)(cm|em|ex|in|pc|pt|bp|mm)", Pattern.CASE_INSENSITIVE)}));
-        // punctuation usually occurring within commands
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PUNCTUATION, Pattern.compile("^[{}()\\[\\]=]+")}));
+    // whitespace
+    _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^[\\t\\n\\r \\xA0]+"), null, "\t\n\r " + Character.toString((char) 0xA0)}));
+    // all comments begin with '%'
+    _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_COMMENT, Pattern.compile("^%[^\\r\\n]*"), null, "%"}));
+    //[PR['PR_DECLARATION'], /^\\([egx]?def|(new|renew|provide)(command|environment))\b/],
+    // any command starting with a \ and contains
+    // either only letters (a-z,A-Z), '@' (internal macros)
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_KEYWORD, Pattern.compile("^\\\\[a-zA-Z@]+")}));
+    // or contains only one character
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_KEYWORD, Pattern.compile("^\\\\.")}));
+    // Highlight dollar for math mode and ampersam for tabular
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_TYPE, Pattern.compile("^[$&]")}));
+    // numeric measurement values with attached units
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("[+-]?(?:\\.\\d+|\\d+(?:\\.\\d*)?)(cm|em|ex|in|pc|pt|bp|mm)", Pattern.CASE_INSENSITIVE)}));
+    // punctuation usually occurring within commands
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PUNCTUATION, Pattern.compile("^[{}()\\[\\]=]+")}));
 
-        setShortcutStylePatterns(_shortcutStylePatterns);
-        setFallthroughStylePatterns(_fallthroughStylePatterns);
-    }
+    setShortcutStylePatterns(_shortcutStylePatterns);
+    setFallthroughStylePatterns(_fallthroughStylePatterns);
+  }
 
-    public static List<String> getFileExtensions() {
-        return Arrays.asList(new String[]{"latex", "tex"});
-    }
+  public static List<String> getFileExtensions() {
+    return Arrays.asList(new String[]{"latex", "tex"});
+  }
 }

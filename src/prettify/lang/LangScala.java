@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
-import prettify.Lang;
-import prettify.Prettify;
+import prettify.parser.Prettify;
 
 /**
  * This is similar to the lang-scala.js in JavaScript Prettify.
@@ -34,36 +33,36 @@ import prettify.Prettify;
  */
 public class LangScala extends Lang {
 
-    public LangScala() {
-        List<List<Object>> _shortcutStylePatterns = new ArrayList<List<Object>>();
-        List<List<Object>> _fallthroughStylePatterns = new ArrayList<List<Object>>();
+  public LangScala() {
+    List<List<Object>> _shortcutStylePatterns = new ArrayList<List<Object>>();
+    List<List<Object>> _fallthroughStylePatterns = new ArrayList<List<Object>>();
 
-        // Whitespace
-        _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^[\\t\\n\\r \\xA0]+"), null, "\t\n\r " + Character.toString((char) 0xA0)}));
-        // A double or single quoted string 
-        // or a triple double-quoted multi-line string.
-        _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_STRING, Pattern.compile("^(?:\"(?:(?:\"\"(?:\"\"?(?!\")|[^\\\\\"]|\\\\.)*\"{0,3})|(?:[^\"\\r\\n\\\\]|\\\\.)*\"?))"), null, "\""}));
-        _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("^`(?:[^\\r\\n\\\\`]|\\\\.)*`?"), null, "`"}));
-        _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PUNCTUATION, Pattern.compile("^[!#%&()*+,\\-:;<=>?@\\[\\\\\\]^{|}~]+"), null, "!#%&()*+,-:;<=>?@[\\\\]^{|}~"}));
-        // A symbol literal is a single quote followed by an identifier with no
-        // single quote following
-        // A character literal has single quotes on either side
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_STRING, Pattern.compile("^'(?:[^\\r\\n\\\\']|\\\\(?:'|[^\\r\\n']+))'")}));
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("^'[a-zA-Z_$][\\w$]*(?!['$\\w])")}));
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_KEYWORD, Pattern.compile("^(?:abstract|case|catch|class|def|do|else|extends|final|finally|for|forSome|if|implicit|import|lazy|match|new|object|override|package|private|protected|requires|return|sealed|super|throw|trait|try|type|val|var|while|with|yield)\\b")}));
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("^(?:true|false|null|this)\\b")}));
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("^(?:(?:0(?:[0-7]+|X[0-9A-F]+))L?|(?:(?:0|[1-9][0-9]*)(?:(?:\\.[0-9]+)?(?:E[+\\-]?[0-9]+)?F?|L?))|\\\\.[0-9]+(?:E[+\\-]?[0-9]+)?F?)", Pattern.CASE_INSENSITIVE)}));
-        // Treat upper camel case identifiers as types.
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_TYPE, Pattern.compile("^[$_]*[A-Z][_$A-Z0-9]*[a-z][\\w$]*")}));
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^[$a-zA-Z_][\\w$]*")}));
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_COMMENT, Pattern.compile("^\\/(?:\\/.*|\\*(?:\\/|\\**[^*/])*(?:\\*+\\/?)?)")}));
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PUNCTUATION, Pattern.compile("^(?:\\.+|\\/)")}));
+    // Whitespace
+    _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^[\\t\\n\\r \\xA0]+"), null, "\t\n\r " + Character.toString((char) 0xA0)}));
+    // A double or single quoted string 
+    // or a triple double-quoted multi-line string.
+    _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_STRING, Pattern.compile("^(?:\"(?:(?:\"\"(?:\"\"?(?!\")|[^\\\\\"]|\\\\.)*\"{0,3})|(?:[^\"\\r\\n\\\\]|\\\\.)*\"?))"), null, "\""}));
+    _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("^`(?:[^\\r\\n\\\\`]|\\\\.)*`?"), null, "`"}));
+    _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PUNCTUATION, Pattern.compile("^[!#%&()*+,\\-:;<=>?@\\[\\\\\\]^{|}~]+"), null, "!#%&()*+,-:;<=>?@[\\\\]^{|}~"}));
+    // A symbol literal is a single quote followed by an identifier with no
+    // single quote following
+    // A character literal has single quotes on either side
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_STRING, Pattern.compile("^'(?:[^\\r\\n\\\\']|\\\\(?:'|[^\\r\\n']+))'")}));
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("^'[a-zA-Z_$][\\w$]*(?!['$\\w])")}));
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_KEYWORD, Pattern.compile("^(?:abstract|case|catch|class|def|do|else|extends|final|finally|for|forSome|if|implicit|import|lazy|match|new|object|override|package|private|protected|requires|return|sealed|super|throw|trait|try|type|val|var|while|with|yield)\\b")}));
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("^(?:true|false|null|this)\\b")}));
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("^(?:(?:0(?:[0-7]+|X[0-9A-F]+))L?|(?:(?:0|[1-9][0-9]*)(?:(?:\\.[0-9]+)?(?:E[+\\-]?[0-9]+)?F?|L?))|\\\\.[0-9]+(?:E[+\\-]?[0-9]+)?F?)", Pattern.CASE_INSENSITIVE)}));
+    // Treat upper camel case identifiers as types.
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_TYPE, Pattern.compile("^[$_]*[A-Z][_$A-Z0-9]*[a-z][\\w$]*")}));
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^[$a-zA-Z_][\\w$]*")}));
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_COMMENT, Pattern.compile("^\\/(?:\\/.*|\\*(?:\\/|\\**[^*/])*(?:\\*+\\/?)?)")}));
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PUNCTUATION, Pattern.compile("^(?:\\.+|\\/)")}));
 
-        setShortcutStylePatterns(_shortcutStylePatterns);
-        setFallthroughStylePatterns(_fallthroughStylePatterns);
-    }
+    setShortcutStylePatterns(_shortcutStylePatterns);
+    setFallthroughStylePatterns(_fallthroughStylePatterns);
+  }
 
-    public static List<String> getFileExtensions() {
-        return Arrays.asList(new String[]{"scala"});
-    }
+  public static List<String> getFileExtensions() {
+    return Arrays.asList(new String[]{"scala"});
+  }
 }

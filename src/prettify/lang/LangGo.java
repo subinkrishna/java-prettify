@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
-import prettify.Lang;
-import prettify.Prettify;
+import prettify.parser.Prettify;
 
 /**
  * This is similar to the lang-go.js in JavaScript Prettify.
@@ -52,24 +51,24 @@ import prettify.Prettify;
  */
 public class LangGo extends Lang {
 
-    public LangGo() {
-        List<List<Object>> _shortcutStylePatterns = new ArrayList<List<Object>>();
-        List<List<Object>> _fallthroughStylePatterns = new ArrayList<List<Object>>();
+  public LangGo() {
+    List<List<Object>> _shortcutStylePatterns = new ArrayList<List<Object>>();
+    List<List<Object>> _fallthroughStylePatterns = new ArrayList<List<Object>>();
 
-        // Whitespace is made up of spaces, tabs and newline characters.
-        _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^[\\t\\n\\r \\xA0]+"), null, "\t\n\r " + Character.toString((char) 0xA0)}));
-        // Not escaped as a string.  See note on minimalism above.
-        _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^(?:\\\"(?:[^\\\"\\\\]|\\\\[\\s\\S])*(?:\\\"|$)|\\'(?:[^\\'\\\\]|\\\\[\\s\\S])+(?:\\'|$)|`[^`]*(?:`|$))"), null, "\"'"}));
-        // Block comments are delimited by /* and */.
-        // Single-line comments begin with // and extend to the end of a line.
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_COMMENT, Pattern.compile("^(?:\\/\\/[^\\r\\n]*|\\/\\*[\\s\\S]*?\\*\\/)")}));
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^(?:[^\\/\\\"\\'`]|\\/(?![\\/\\*]))+", Pattern.CASE_INSENSITIVE)}));
+    // Whitespace is made up of spaces, tabs and newline characters.
+    _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^[\\t\\n\\r \\xA0]+"), null, "\t\n\r " + Character.toString((char) 0xA0)}));
+    // Not escaped as a string.  See note on minimalism above.
+    _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^(?:\\\"(?:[^\\\"\\\\]|\\\\[\\s\\S])*(?:\\\"|$)|\\'(?:[^\\'\\\\]|\\\\[\\s\\S])+(?:\\'|$)|`[^`]*(?:`|$))"), null, "\"'"}));
+    // Block comments are delimited by /* and */.
+    // Single-line comments begin with // and extend to the end of a line.
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_COMMENT, Pattern.compile("^(?:\\/\\/[^\\r\\n]*|\\/\\*[\\s\\S]*?\\*\\/)")}));
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^(?:[^\\/\\\"\\'`]|\\/(?![\\/\\*]))+", Pattern.CASE_INSENSITIVE)}));
 
-        setShortcutStylePatterns(_shortcutStylePatterns);
-        setFallthroughStylePatterns(_fallthroughStylePatterns);
-    }
+    setShortcutStylePatterns(_shortcutStylePatterns);
+    setFallthroughStylePatterns(_fallthroughStylePatterns);
+  }
 
-    public static List<String> getFileExtensions() {
-        return Arrays.asList(new String[]{"go"});
-    }
+  public static List<String> getFileExtensions() {
+    return Arrays.asList(new String[]{"go"});
+  }
 }

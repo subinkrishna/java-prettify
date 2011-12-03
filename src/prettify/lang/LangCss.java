@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
-import prettify.Lang;
-import prettify.Prettify;
+import prettify.parser.Prettify;
 
 /**
  * This is similar to the lang-css.js in JavaScript Prettify.
@@ -41,73 +40,73 @@ import prettify.Prettify;
  */
 public class LangCss extends Lang {
 
-    public LangCss() {
-        List<List<Object>> _shortcutStylePatterns = new ArrayList<List<Object>>();
-        List<List<Object>> _fallthroughStylePatterns = new ArrayList<List<Object>>();
+  public LangCss() {
+    List<List<Object>> _shortcutStylePatterns = new ArrayList<List<Object>>();
+    List<List<Object>> _fallthroughStylePatterns = new ArrayList<List<Object>>();
 
-        // The space production <s>
-        _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^[ \t\r\n\f]+"), null, " \t\r\n\f"}));
-        // Quoted strings.  <string1> and <string2>
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_STRING, Pattern.compile("^\\\"(?:[^\n\r\f\\\\\\\"]|\\\\(?:\r\n?|\n|\f)|\\\\[\\s\\S])*\\\""), null}));
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_STRING, Pattern.compile("^\\'(?:[^\n\r\f\\\\\\']|\\\\(?:\r\n?|\n|\f)|\\\\[\\s\\S])*\\'"), null}));
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{"lang-css-str", Pattern.compile("^url\\(([^\\)\\\"\\']*)\\)", Pattern.CASE_INSENSITIVE)}));
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_KEYWORD, Pattern.compile("^(?:url|rgb|\\!important|@import|@page|@media|@charset|inherit)(?=[^\\-\\w]|$)", Pattern.CASE_INSENSITIVE), null}));
-        // A property name -- an identifier followed by a colon.
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{"lang-css-kw", Pattern.compile("^(-?(?:[_a-z]|(?:\\\\[0-9a-f]+ ?))(?:[_a-z0-9\\-]|\\\\(?:\\\\[0-9a-f]+ ?))*)\\s*:", Pattern.CASE_INSENSITIVE)}));
-        // A C style block comment.  The <comment> production.
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_COMMENT, Pattern.compile("^\\/\\*[^*]*\\*+(?:[^\\/*][^*]*\\*+)*\\/")}));
-        // Escaping text spans
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_COMMENT, Pattern.compile("^(?:<!--|-->)")}));
-        // A number possibly containing a suffix.
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("^(?:\\d+|\\d*\\.\\d+)(?:%|[a-z]+)?", Pattern.CASE_INSENSITIVE)}));
-        // A hex color
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("^#(?:[0-9a-f]{3}){1,2}", Pattern.CASE_INSENSITIVE)}));
-        // An identifier
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^-?(?:[_a-z]|(?:\\\\[\\da-f]+ ?))(?:[_a-z\\d\\-]|\\\\(?:\\\\[\\da-f]+ ?))*", Pattern.CASE_INSENSITIVE)}));
-        // A run of punctuation
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PUNCTUATION, Pattern.compile("^[^\\s\\w\\'\\\"]+", Pattern.CASE_INSENSITIVE)}));
+    // The space production <s>
+    _shortcutStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^[ \t\r\n\f]+"), null, " \t\r\n\f"}));
+    // Quoted strings.  <string1> and <string2>
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_STRING, Pattern.compile("^\\\"(?:[^\n\r\f\\\\\\\"]|\\\\(?:\r\n?|\n|\f)|\\\\[\\s\\S])*\\\""), null}));
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_STRING, Pattern.compile("^\\'(?:[^\n\r\f\\\\\\']|\\\\(?:\r\n?|\n|\f)|\\\\[\\s\\S])*\\'"), null}));
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{"lang-css-str", Pattern.compile("^url\\(([^\\)\\\"\\']*)\\)", Pattern.CASE_INSENSITIVE)}));
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_KEYWORD, Pattern.compile("^(?:url|rgb|\\!important|@import|@page|@media|@charset|inherit)(?=[^\\-\\w]|$)", Pattern.CASE_INSENSITIVE), null}));
+    // A property name -- an identifier followed by a colon.
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{"lang-css-kw", Pattern.compile("^(-?(?:[_a-z]|(?:\\\\[0-9a-f]+ ?))(?:[_a-z0-9\\-]|\\\\(?:\\\\[0-9a-f]+ ?))*)\\s*:", Pattern.CASE_INSENSITIVE)}));
+    // A C style block comment.  The <comment> production.
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_COMMENT, Pattern.compile("^\\/\\*[^*]*\\*+(?:[^\\/*][^*]*\\*+)*\\/")}));
+    // Escaping text spans
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_COMMENT, Pattern.compile("^(?:<!--|-->)")}));
+    // A number possibly containing a suffix.
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("^(?:\\d+|\\d*\\.\\d+)(?:%|[a-z]+)?", Pattern.CASE_INSENSITIVE)}));
+    // A hex color
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("^#(?:[0-9a-f]{3}){1,2}", Pattern.CASE_INSENSITIVE)}));
+    // An identifier
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^-?(?:[_a-z]|(?:\\\\[\\da-f]+ ?))(?:[_a-z\\d\\-]|\\\\(?:\\\\[\\da-f]+ ?))*", Pattern.CASE_INSENSITIVE)}));
+    // A run of punctuation
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PUNCTUATION, Pattern.compile("^[^\\s\\w\\'\\\"]+", Pattern.CASE_INSENSITIVE)}));
 
-        setShortcutStylePatterns(_shortcutStylePatterns);
-        setFallthroughStylePatterns(_fallthroughStylePatterns);
+    setShortcutStylePatterns(_shortcutStylePatterns);
+    setFallthroughStylePatterns(_fallthroughStylePatterns);
 
-        setExtendedLangs(Arrays.asList(new Lang[]{new LangCssKeyword(), new LangCssString()}));
+    setExtendedLangs(Arrays.asList(new Lang[]{new LangCssKeyword(), new LangCssString()}));
+  }
+
+  public static List<String> getFileExtensions() {
+    return Arrays.asList(new String[]{"css"});
+  }
+
+  protected static class LangCssKeyword extends Lang {
+
+    public LangCssKeyword() {
+      List<List<Object>> _shortcutStylePatterns = new ArrayList<List<Object>>();
+      List<List<Object>> _fallthroughStylePatterns = new ArrayList<List<Object>>();
+
+      _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_KEYWORD, Pattern.compile("^-?(?:[_a-z]|(?:\\\\[\\da-f]+ ?))(?:[_a-z\\d\\-]|\\\\(?:\\\\[\\da-f]+ ?))*", Pattern.CASE_INSENSITIVE)}));
+
+      setShortcutStylePatterns(_shortcutStylePatterns);
+      setFallthroughStylePatterns(_fallthroughStylePatterns);
     }
 
     public static List<String> getFileExtensions() {
-        return Arrays.asList(new String[]{"css"});
+      return Arrays.asList(new String[]{"css-kw"});
+    }
+  }
+
+  protected static class LangCssString extends Lang {
+
+    public LangCssString() {
+      List<List<Object>> _shortcutStylePatterns = new ArrayList<List<Object>>();
+      List<List<Object>> _fallthroughStylePatterns = new ArrayList<List<Object>>();
+
+      _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_STRING, Pattern.compile("^[^\\)\\\"\\']+")}));
+
+      setShortcutStylePatterns(_shortcutStylePatterns);
+      setFallthroughStylePatterns(_fallthroughStylePatterns);
     }
 
-    protected static class LangCssKeyword extends Lang {
-
-        public LangCssKeyword() {
-            List<List<Object>> _shortcutStylePatterns = new ArrayList<List<Object>>();
-            List<List<Object>> _fallthroughStylePatterns = new ArrayList<List<Object>>();
-
-            _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_KEYWORD, Pattern.compile("^-?(?:[_a-z]|(?:\\\\[\\da-f]+ ?))(?:[_a-z\\d\\-]|\\\\(?:\\\\[\\da-f]+ ?))*", Pattern.CASE_INSENSITIVE)}));
-
-            setShortcutStylePatterns(_shortcutStylePatterns);
-            setFallthroughStylePatterns(_fallthroughStylePatterns);
-        }
-
-        public static List<String> getFileExtensions() {
-            return Arrays.asList(new String[]{"css-kw"});
-        }
+    public static List<String> getFileExtensions() {
+      return Arrays.asList(new String[]{"css-str"});
     }
-
-    protected static class LangCssString extends Lang {
-
-        public LangCssString() {
-            List<List<Object>> _shortcutStylePatterns = new ArrayList<List<Object>>();
-            List<List<Object>> _fallthroughStylePatterns = new ArrayList<List<Object>>();
-
-            _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_STRING, Pattern.compile("^[^\\)\\\"\\']+")}));
-
-            setShortcutStylePatterns(_shortcutStylePatterns);
-            setFallthroughStylePatterns(_fallthroughStylePatterns);
-        }
-
-        public static List<String> getFileExtensions() {
-            return Arrays.asList(new String[]{"css-str"});
-        }
-    }
+  }
 }
