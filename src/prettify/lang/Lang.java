@@ -107,10 +107,10 @@ public abstract class Lang {
 
   /**
    * Set extended languages. Because we cannot register multiple languages 
-   * within one {@link prettify.Lang}, so it is used as an solution. See 
+   * within one {@link prettify.lang.Lang}, so it is used as an solution. See 
    * {@link prettify.lang.LangCss} for example.
    * 
-   * @param extendedLangs the list of {@link prettify.Lang}s
+   * @param extendedLangs the list of {@link prettify.lang.Lang}s
    */
   public void setExtendedLangs(List<Lang> extendedLangs) {
     this.extendedLangs = new ArrayList<Lang>(extendedLangs);

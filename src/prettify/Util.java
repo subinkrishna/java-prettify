@@ -157,7 +157,7 @@ public class Util {
   /**
    * Remove identical adjacent tags from {@code decorations}.
    * 
-   * @param decorations see {@link prettify.Job#decorations}
+   * @param decorations see {@link prettify.parser.Job#decorations}
    * @param source the source code
    * 
    * @return the {@code decorations} after treatment

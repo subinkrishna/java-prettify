@@ -164,11 +164,11 @@ public class Theme {
   }
 
   /**
-   * Get the {@link prettify.Theme.Style} by keyword.
+   * Get the {@link prettify.theme.Style} by keyword.
    * @param key the keyword, possible values: plain, comments, string, keyword, 
    * preprocessor, variable, value, functions, constants, script, 
    * scriptBackground, color1, color2 or color3
-   * @return the {@link prettify.Theme.Style} related to the {@code key}; if 
+   * @return the {@link prettify.theme.Style} related to the {@code key}; if 
    * the style related to the <code>key</code> not exist, the style of 'plain'
    * will return.
    */

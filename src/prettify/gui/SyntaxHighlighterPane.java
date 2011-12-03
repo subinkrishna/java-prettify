@@ -81,7 +81,7 @@ public class SyntaxHighlighterPane extends JTextPane {
    */
   protected Theme theme;
   /**
-   * The style list. see {@link #setStyle(java.util.List)}.
+   * The style list.
    */
   protected List<Object> styleList;
   /**
