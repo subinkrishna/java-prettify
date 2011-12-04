@@ -285,7 +285,7 @@ public class SyntaxHighlighter extends JScrollPane {
    */
   protected static String readFile(File file) throws IOException {
     if (file == null) {
-      throw new IOException("argument 'file' cannot be null");
+      throw new NullPointerException("argument 'file' cannot be null");
     }
 
     byte[] buffer = new byte[(int) file.length()];
