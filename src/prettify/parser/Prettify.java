@@ -23,7 +23,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
-import prettify.Util;
 import prettify.lang.LangAppollo;
 import prettify.lang.LangClj;
 import prettify.lang.LangCss;

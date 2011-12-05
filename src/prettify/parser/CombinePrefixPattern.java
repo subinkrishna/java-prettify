@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import prettify.Util;
 
 /**
  * This is similar to the combinePrefixPattern.js in JavaScript Prettify.

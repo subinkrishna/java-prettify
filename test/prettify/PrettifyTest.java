@@ -13,6 +13,7 @@
 // limitations under the License.
 package prettify;
 
+import prettify.parser.Util;
 import prettify.parser.Job;
 import prettify.parser.Prettify;
 import java.util.ListIterator;
