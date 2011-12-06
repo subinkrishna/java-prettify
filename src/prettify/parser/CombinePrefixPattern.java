@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
  * 
  * All comments are adapted from the JavaScript Prettify.
  * 
- * @author Chan Wai Shing <cws1989@gmail.com>
+ * @author mikesamuel@gmail.com
  */
 public class CombinePrefixPattern {
 
