@@ -446,11 +446,7 @@ public class SyntaxHighlighterPane extends JTextPane {
    * @return a copy of the list
    */
   public List<Integer> getHighlightedLineList() {
-    List<Integer> returnList;
-    synchronized (highlightedLineList) {
-      returnList = new ArrayList<Integer>(highlightedLineList);
-    }
-    return returnList;
+    return new ArrayList<Integer>(highlightedLineList);
   }
 
   /**
