@@ -1,4 +1,4 @@
-// Copyright (C) 2011 Chan Wai Shing
+// Copyright (C) 2012 Chan Wai Shing
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,19 +11,22 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package prettify.theme;
+package syntaxhighlight;
 
 import java.awt.Color;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
 /**
- * The style used by {@link prettify.theme} as those of CSS styles.
+ * The style used by {@link syntaxhiglight.Theme} as those of CSS styles.
  * 
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
-public class Style {
+public class Style implements Cloneable {
 
+  protected boolean changed;
+  protected SimpleAttributeSet attributeSet;
+  //
   protected boolean bold;
   protected Color color;
   /**
@@ -47,6 +50,9 @@ public class Style {
    * </p>
    */
   public Style() {
+    changed = true;
+    attributeSet = null;
+
     bold = false;
     color = Color.black;
     background = null;
@@ -55,38 +61,21 @@ public class Style {
   }
 
   /**
-   * Apply the style to the AttributeSet.
-   * Note that the AttributeSet should only be set by this function once or some unexpected style may appear.
-   * @param attributeSet the AttributeSet to set the style on
-   */
-  public void setAttributeSet(SimpleAttributeSet attributeSet) {
-    if (attributeSet == null) {
-      return;
-    }
-    StyleConstants.setBold(attributeSet, bold);
-    StyleConstants.setForeground(attributeSet, color);
-    if (background != null) {
-      StyleConstants.setBackground(attributeSet, background);
-    } else {
-      attributeSet.removeAttribute(StyleConstants.Background);
-    }
-    StyleConstants.setUnderline(attributeSet, underline);
-    StyleConstants.setItalic(attributeSet, italic);
-  }
-
-  /**
    * Get the AttributeSet from this style.
    * @return the AttributeSet
    */
   public SimpleAttributeSet getAttributeSet() {
-    SimpleAttributeSet attributeSet = new SimpleAttributeSet();
-    StyleConstants.setBold(attributeSet, bold);
-    StyleConstants.setForeground(attributeSet, color);
-    if (background != null) {
-      StyleConstants.setBackground(attributeSet, background);
+    if (changed) {
+      attributeSet = new SimpleAttributeSet();
+      StyleConstants.setBold(attributeSet, bold);
+      StyleConstants.setForeground(attributeSet, color);
+      if (background != null) {
+        StyleConstants.setBackground(attributeSet, background);
+      }
+      StyleConstants.setUnderline(attributeSet, underline);
+      StyleConstants.setItalic(attributeSet, italic);
+      changed = false;
     }
-    StyleConstants.setUnderline(attributeSet, underline);
-    StyleConstants.setItalic(attributeSet, italic);
     return attributeSet;
   }
 
@@ -103,9 +92,7 @@ public class Style {
    * @param background input null means do not set the background
    */
   public void setBackground(Color background) {
-    if (background == null) {
-      throw new NullPointerException("argument 'background' cannot be null");
-    }
+    changed = true;
     this.background = background;
   }
 
@@ -114,6 +101,7 @@ public class Style {
   }
 
   public void setBold(boolean bold) {
+    changed = true;
     this.bold = bold;
   }
 
@@ -125,6 +113,7 @@ public class Style {
     if (color == null) {
       throw new NullPointerException("argument 'color' cannot be null");
     }
+    changed = true;
     this.color = color;
   }
 
@@ -133,6 +122,7 @@ public class Style {
   }
 
   public void setItalic(boolean italic) {
+    changed = true;
     this.italic = italic;
   }
 
@@ -141,6 +131,7 @@ public class Style {
   }
 
   public void setUnderline(boolean underline) {
+    changed = true;
     this.underline = underline;
   }
 
@@ -149,12 +140,12 @@ public class Style {
    */
   @Override
   public int hashCode() {
-    int hash = 5;
-    hash = 59 * hash + (this.bold ? 1 : 0);
-    hash = 59 * hash + (this.color != null ? this.color.hashCode() : 0);
-    hash = 59 * hash + (this.background != null ? this.background.hashCode() : 0);
-    hash = 59 * hash + (this.underline ? 1 : 0);
-    hash = 59 * hash + (this.italic ? 1 : 0);
+    int hash = 7;
+    hash = 97 * hash + (this.bold ? 1 : 0);
+    hash = 97 * hash + (this.color != null ? this.color.hashCode() : 0);
+    hash = 97 * hash + (this.background != null ? this.background.hashCode() : 0);
+    hash = 97 * hash + (this.underline ? 1 : 0);
+    hash = 97 * hash + (this.italic ? 1 : 0);
     return hash;
   }
 
@@ -182,11 +173,6 @@ public class Style {
     Style object = null;
     try {
       object = (Style) super.clone();
-      object.bold = bold;
-      object.color = color;
-      object.background = background;
-      object.underline = underline;
-      object.italic = italic;
     } catch (CloneNotSupportedException ex) {
     }
     return object;
@@ -199,6 +185,7 @@ public class Style {
   public String toString() {
     StringBuilder sb = new StringBuilder();
 
+    sb.append("[");
     sb.append(getClass().getName());
     sb.append(": ");
     sb.append("bold: ").append(bold);
@@ -210,6 +197,7 @@ public class Style {
     sb.append("underline: ").append(underline);
     sb.append(", ");
     sb.append("italic: ").append(italic);
+    sb.append("]");
 
     return sb.toString();
   }

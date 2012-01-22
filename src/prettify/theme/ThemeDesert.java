@@ -15,6 +15,8 @@ package prettify.theme;
 
 import java.awt.Color;
 import java.awt.Font;
+import syntaxhighlight.Style;
+import syntaxhighlight.Theme;
 
 /**
  * Desert theme.
@@ -40,64 +42,65 @@ public class ThemeDesert extends Theme {
 
     Style plainStyle = new Style();
     plainStyle.setColor(Color.decode("0xffffff"));
+    addStyle("pln", plainStyle);
     setPlain(plainStyle);
 
     Style style;
 
     style = new Style();
     style.setColor(Color.decode("0xffa0a0")); /* string  - pink */
-    setString(style);
+    addStyle("str", style);
 
     style = new Style();
     style.setColor(Color.decode("0xf0e68c"));
     style.setBold(true);
-    setKeyword(style);
+    addStyle("kwd", style);
 
     style = new Style();
     style.setColor(Color.decode("0x87ceeb")); /* comment - skyblue */
-    setComment(style);
+    addStyle("com", style);
 
     style = new Style();
     style.setColor(Color.decode("0x98fb98")); /* type    - lightgreen */
-    setType(style);
+    addStyle("typ", style);
 
     style = new Style();
     style.setColor(Color.decode("0xcd5c5c")); /* literal - darkred */
-    setLiteral(style);
+    addStyle("lit", style);
 
     style = new Style();
     style.setColor(Color.decode("0xffffff"));
-    setPunctuation(style);
+    addStyle("pun", style);
 
     style = new Style();
     style.setColor(Color.decode("0xf0e68c"));/* html/xml tag    - lightyellow */
     style.setBold(true);
-    setTag(style);
+    addStyle("tag", style);
 
     style = new Style();
     style.setColor(Color.decode("0x98fb98")); /* decimal         - lightgreen */
-    setDeclaration(style);
+    addStyle("dec", style);
 
     style = new Style();
     style.setColor(Color.decode("0xbdb76b")); /* attribute name  - khaki */
     style.setBold(true);
-    setAttributeName(style);
+    addStyle("atn", style);
 
     style = new Style();
     style.setColor(Color.decode("0xffa0a0")); /* attribute value - pink */
     style.setBold(true);
-    setAttributeValue(style);
+    addStyle("atv", style);
 
     style = new Style();
     style.setColor(Color.decode("0x333333"));
-    setNoCode(style);
+    addStyle("nocode", style);
 
-    setOpenBracket(plainStyle);
+    addStyle("opn", plainStyle);
 
-    setCloseBracket(plainStyle);
+    addStyle("clo", plainStyle);
 
-    setVariable(plainStyle);
+    addStyle("var", plainStyle);
 
-    setFunction(plainStyle);
+    addStyle("fun", plainStyle);
   }
 }

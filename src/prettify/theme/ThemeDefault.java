@@ -15,6 +15,8 @@ package prettify.theme;
 
 import java.awt.Color;
 import java.awt.Font;
+import syntaxhighlight.Style;
+import syntaxhighlight.Theme;
 
 /**
  * Default theme.
@@ -38,64 +40,65 @@ public class ThemeDefault extends Theme {
 
     Style plainStyle = new Style();
     plainStyle.setColor(Color.decode("0x000000"));
+    addStyle("pln", plainStyle);
     setPlain(plainStyle);
 
     Style style;
 
     style = new Style();
     style.setColor(Color.decode("0x008800"));
-    setString(style);
+    addStyle("str", style);
 
     style = new Style();
     style.setColor(Color.decode("0x000088"));
-    setKeyword(style);
+    addStyle("kwd", style);
 
     style = new Style();
     style.setColor(Color.decode("0x880000"));
-    setComment(style);
+    addStyle("com", style);
 
     style = new Style();
     style.setColor(Color.decode("0x660066"));
-    setType(style);
+    addStyle("typ", style);
 
     style = new Style();
     style.setColor(Color.decode("0x006666"));
-    setLiteral(style);
+    addStyle("lit", style);
 
     style = new Style();
     style.setColor(Color.decode("0x666600"));
-    setPunctuation(style);
+    addStyle("pun", style);
 
     style = new Style();
     style.setColor(Color.decode("0x000088"));
-    setTag(style);
+    addStyle("tag", style);
 
-    setDeclaration(plainStyle);
+    addStyle("dec", plainStyle);
 
     style = new Style();
     style.setColor(Color.decode("0x660066"));
-    setAttributeName(style);
+    addStyle("atn", style);
 
     style = new Style();
     style.setColor(Color.decode("0x008800"));
-    setAttributeValue(style);
+    addStyle("atv", style);
 
-    setNoCode(plainStyle);
-
-    style = new Style();
-    style.setColor(Color.decode("0x666600"));
-    setOpenBracket(style);
+    addStyle("nocode", plainStyle);
 
     style = new Style();
     style.setColor(Color.decode("0x666600"));
-    setCloseBracket(style);
+    addStyle("opn", style);
+
+    style = new Style();
+    style.setColor(Color.decode("0x666600"));
+    addStyle("clo", style);
 
     style = new Style();
     style.setColor(Color.decode("0x660066"));
-    setVariable(style);
+    addStyle("var", style);
 
     style = new Style();
     style.setColor(Color.red);
-    setFunction(style);
+    addStyle("fun", style);
   }
 }

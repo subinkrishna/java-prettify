@@ -1,19 +1,25 @@
-// Copyright (C) 2011 Chan Wai Shing
+// Copyright (c) 2011 Chan Wai Shing
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Permission is hereby granted, free of charge, to any person obtaining
+// a copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to
+// permit persons to whom the Software is furnished to do so, subject to
+// the following conditions:
 //
-//      http://www.apache.org/licenses/LICENSE-2.0
+// The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
 //
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-package prettify.gui;
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+package syntaxhighlight;
 
-import prettify.theme.Theme;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -24,7 +30,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextPane;
@@ -83,7 +91,7 @@ public class SyntaxHighlighterPane extends JTextPane {
   /**
    * The style list.
    */
-  protected List<Object> styleList;
+  protected Map<String, List<ParseResult>> styleList;
   /**
    * Record the mouse cursor is currently pointing at which line of the 
    * document. -1 means not any line.
@@ -311,19 +319,32 @@ public class SyntaxHighlighterPane extends JTextPane {
     styleList = null;
   }
 
-  /**
-   * Apply the list of style to the script text pane.
-   * 
-   * @param styleList the style list
-   */
-  public void setStyle(List<Object> styleList) {
+  public void setStyle(List<ParseResult> styleList) {
     if (styleList == null) {
-      this.styleList = new ArrayList<Object>();
-      return;
+      throw new NullPointerException("argumenst 'styleList' cannot be null");
     }
-    this.styleList = new ArrayList<Object>(styleList);
 
-    if (theme == null) {
+    this.styleList = new HashMap<String, List<ParseResult>>();
+
+    for (ParseResult parseResult : styleList) {
+      String styleKeysString = parseResult.getStyleKeysString();
+      List<ParseResult> _styleList = this.styleList.get(styleKeysString);
+      if (_styleList == null) {
+        _styleList = new ArrayList<ParseResult>();
+        this.styleList.put(styleKeysString, _styleList);
+      }
+      _styleList.add(parseResult);
+    }
+
+    applyStyle();
+  }
+
+  /**
+   * Apply the list of style to the script text pane. See 
+   * {@link syntaxhighlighter.parser.Parser#parse(syntaxhighlighter.brush.Brush, boolean, char[], int, int)}.
+   */
+  protected void applyStyle() {
+    if (theme == null || styleList == null) {
       return;
     }
 
@@ -331,13 +352,14 @@ public class SyntaxHighlighterPane extends JTextPane {
     // clear all the existing style
     document.setCharacterAttributes(0, document.getLength(), theme.getPlain().getAttributeSet(), true);
 
-    Integer startPos = 0, endPos = 0;
     // apply style according to the style list
-    for (int i = 0, iEnd = styleList.size(); i < iEnd; i += 2) {
-      SimpleAttributeSet attributeSet = theme.getStyle((String) styleList.get(i + 1)).getAttributeSet();
-      endPos = i + 2 < iEnd ? (Integer) styleList.get(i + 2) : document.getLength();
-      startPos = (Integer) styleList.get(i);
-      document.setCharacterAttributes(startPos, endPos - startPos, attributeSet, true);
+    for (String key : styleList.keySet()) {
+      List<ParseResult> posList = styleList.get(key);
+
+      SimpleAttributeSet attributeSet = theme.getStyle(key).getAttributeSet();
+      for (ParseResult pos : posList) {
+        document.setCharacterAttributes(pos.getOffset(), pos.getLength(), attributeSet, true);
+      }
     }
 
     repaint();
@@ -368,7 +390,7 @@ public class SyntaxHighlighterPane extends JTextPane {
     setHighlightedBackground(theme.getHighlightedBackground());
 
     if (styleList != null) {
-      setStyle(styleList);
+      applyStyle();
     }
   }
 
@@ -456,11 +478,12 @@ public class SyntaxHighlighterPane extends JTextPane {
    * @param highlightedLineList the list that contain the highlighted lines
    */
   public void setHighlightedLineList(List<Integer> highlightedLineList) {
+    if (highlightedLineList == null) {
+      throw new NullPointerException("argument 'highlightedLineList' cannot be null");
+    }
     synchronized (this.highlightedLineList) {
       this.highlightedLineList.clear();
-      if (highlightedLineList != null) {
-        this.highlightedLineList.addAll(highlightedLineList);
-      }
+      this.highlightedLineList.addAll(highlightedLineList);
     }
     repaint();
   }

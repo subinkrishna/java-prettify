@@ -11,13 +11,8 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package prettify;
+package syntaxhighlight;
 
-import prettify.parser.Job;
-import prettify.parser.Prettify;
-import prettify.gui.SyntaxHighlighterPane;
-import prettify.gui.JTextComponentRowHeader;
-import prettify.theme.Theme;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -48,7 +43,7 @@ public class SyntaxHighlighter extends JScrollPane {
   /**
    * The Prettify object.
    */
-  protected Prettify prettify;
+  protected Parser parser;
   /**
    * The content of the syntax highlighter, null if there is no content so far.
    */
@@ -57,19 +52,21 @@ public class SyntaxHighlighter extends JScrollPane {
   /**
    * Constructor.
    * 
+   * @param parser 
    * @param theme the theme for the syntax highlighter
    */
-  public SyntaxHighlighter(Theme theme) {
-    this(theme, new SyntaxHighlighterPane());
+  public SyntaxHighlighter(Parser parser, Theme theme) {
+    this(parser, theme, new SyntaxHighlighterPane());
   }
 
   /**
    * Constructor.
    * 
+   * @param parser 
    * @param theme the theme for the syntax highlighter
    * @param highlighterPane the script text pane of the syntax highlighter
    */
-  public SyntaxHighlighter(Theme theme, SyntaxHighlighterPane highlighterPane) {
+  public SyntaxHighlighter(Parser parser, Theme theme, SyntaxHighlighterPane highlighterPane) {
     super();
 
     if (theme == null) {
@@ -80,7 +77,7 @@ public class SyntaxHighlighter extends JScrollPane {
     }
 
     this.theme = theme;
-    prettify = new Prettify();
+    this.parser = parser;
 
     setBorder(null);
 
@@ -103,9 +100,7 @@ public class SyntaxHighlighter extends JScrollPane {
     if (content != null) {
       // stop the change listener on the row header to speed up rendering
       highlighterRowHeader.setListenToDocumentUpdate(false);
-      Job job = new Job(0, content);
-      prettify.langHandlerForExtension(null, content).decorate(job);
-      highlighter.setStyle(job.getDecorations());
+      highlighter.setStyle(parser.parse(null, content));
       // resume the change listener on the row header
       highlighterRowHeader.setListenToDocumentUpdate(true);
       // notify the row header to update its information related to the SyntaxHighlighterPane

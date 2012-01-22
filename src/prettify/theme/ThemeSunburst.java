@@ -15,6 +15,8 @@ package prettify.theme;
 
 import java.awt.Color;
 import java.awt.Font;
+import syntaxhighlight.Style;
+import syntaxhighlight.Theme;
 
 /**
  * Sunbrust theme.
@@ -43,59 +45,60 @@ public class ThemeSunburst extends Theme {
 
     Style plainStyle = new Style();
     plainStyle.setColor(Color.decode("0xffffff"));
+    addStyle("pln", plainStyle);
     setPlain(plainStyle);
 
     Style style;
 
     style = new Style();
     style.setColor(Color.decode("0x65B042")); /* string  - green */
-    setString(style);
+    addStyle("str", style);
 
     style = new Style();
     style.setColor(Color.decode("0xE28964")); /* keyword - dark pink */
-    setKeyword(style);
+    addStyle("kwd", style);
 
     style = new Style();
     style.setColor(Color.decode("0xAEAEAE")); /* comment - gray */
     style.setItalic(true);
-    setComment(style);
+    addStyle("com", style);
 
     style = new Style();
     style.setColor(Color.decode("0x89bdff")); /* type - light blue */
-    setType(style);
+    addStyle("typ", style);
 
     style = new Style();
     style.setColor(Color.decode("0x3387CC")); /* literal - blue */
-    setLiteral(style);
+    addStyle("lit", style);
 
     style = new Style();
     style.setColor(Color.decode("0xffffff")); /* punctuation - white */
-    setPunctuation(style);
+    addStyle("pun", style);
 
     style = new Style();
     style.setColor(Color.decode("0x89bdff")); /* html/xml tag    - light blue */
-    setTag(style);
+    addStyle("tag", style);
 
     style = new Style();
     style.setColor(Color.decode("0x3387CC")); /* decimal - blue */
-    setDeclaration(style);
+    addStyle("dec", style);
 
     style = new Style();
     style.setColor(Color.decode("0xbdb76b")); /* html/xml attribute name  - khaki */
-    setAttributeName(style);
+    addStyle("atn", style);
 
     style = new Style();
     style.setColor(Color.decode("0x65B042")); /* html/xml attribute value - green */
-    setAttributeValue(style);
+    addStyle("atv", style);
 
-    setNoCode(plainStyle);
+    addStyle("nocode", plainStyle);
 
-    setOpenBracket(plainStyle);
+    addStyle("opn", plainStyle);
 
-    setCloseBracket(plainStyle);
+    addStyle("clo", plainStyle);
 
-    setVariable(plainStyle);
+    addStyle("var", plainStyle);
 
-    setFunction(plainStyle);
+    addStyle("fun", plainStyle);
   }
 }

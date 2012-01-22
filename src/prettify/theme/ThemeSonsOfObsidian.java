@@ -15,6 +15,8 @@ package prettify.theme;
 
 import java.awt.Color;
 import java.awt.Font;
+import syntaxhighlight.Style;
+import syntaxhighlight.Theme;
 
 /**
  * Son of Obsidian theme.
@@ -47,58 +49,59 @@ public class ThemeSonsOfObsidian extends Theme {
 
     Style plainStyle = new Style();
     plainStyle.setColor(Color.decode("0xF1F2F3"));
+    addStyle("pln", plainStyle);
     setPlain(plainStyle);
 
     Style style;
 
     style = new Style();
     style.setColor(Color.decode("0xEC7600"));
-    setString(style);
+    addStyle("str", style);
 
     style = new Style();
     style.setColor(Color.decode("0x93C763"));
-    setKeyword(style);
+    addStyle("kwd", style);
 
     style = new Style();
     style.setColor(Color.decode("0x66747B"));
-    setComment(style);
+    addStyle("com", style);
 
     style = new Style();
     style.setColor(Color.decode("0x678CB1"));
-    setType(style);
+    addStyle("typ", style);
 
     style = new Style();
     style.setColor(Color.decode("0xFACD22"));
-    setLiteral(style);
+    addStyle("lit", style);
 
     style = new Style();
     style.setColor(Color.decode("0xF1F2F3"));
-    setPunctuation(style);
+    addStyle("pun", style);
 
     style = new Style();
     style.setColor(Color.decode("0x8AC763"));
-    setTag(style);
+    addStyle("tag", style);
 
     style = new Style();
     style.setColor(Color.decode("0x800080"));
-    setDeclaration(style);
+    addStyle("dec", style);
 
     style = new Style();
     style.setColor(Color.decode("0xE0E2E4"));
-    setAttributeName(style);
+    addStyle("atn", style);
 
     style = new Style();
     style.setColor(Color.decode("0xEC7600"));
-    setAttributeValue(style);
+    addStyle("atv", style);
 
-    setNoCode(plainStyle);
+    addStyle("nocode", plainStyle);
 
-    setOpenBracket(plainStyle);
+    addStyle("opn", plainStyle);
 
-    setCloseBracket(plainStyle);
+    addStyle("clo", plainStyle);
 
-    setVariable(plainStyle);
+    addStyle("var", plainStyle);
 
-    setFunction(plainStyle);
+    addStyle("fun", plainStyle);
   }
 }

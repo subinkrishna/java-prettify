@@ -22,8 +22,10 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import prettify.SyntaxHighlighter;
+import prettify.PrettifyParser;
 import prettify.theme.ThemeDefault;
+import syntaxhighlight.Parser;
+import syntaxhighlight.SyntaxHighlighter;
 
 /**
  * Usage example. This will just cover some of the functions. To know other 
@@ -88,8 +90,10 @@ public class Example {
         long start, end;
         start = System.currentTimeMillis();
 
+        // initialize the parser
+        Parser parser = new PrettifyParser();
         // use Default theme
-        SyntaxHighlighter highlighter = new SyntaxHighlighter(new ThemeDefault());
+        SyntaxHighlighter highlighter = new SyntaxHighlighter(parser, new ThemeDefault());
         // set the line number count from 10 instead of 1
         highlighter.setFirstLine(10);
         // set to highlight line 13, 27, 28, 38, 42, 43 and 53
