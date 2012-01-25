@@ -1,4 +1,4 @@
-// Copyright (c) 2011 Chan Wai Shing
+// Copyright (c) 2012 Chan Wai Shing
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -28,10 +28,12 @@ import java.util.logging.Logger;
 import javax.swing.text.SimpleAttributeSet;
 
 /**
- * Theme for the syntax highlighter.
- * To make a new theme, either extending this class of initiate this class 
- * and set the parameter by the setter. For the default value, please refer to 
- * the constructor.
+ * Theme for the {@link SyntaxHighlighterPane} and 
+ * {@link JTextComponentRowHeader}.
+ * 
+ * To make a new theme, either extending this class or initiate this class and 
+ * set parameters using setters. For the default value, find the comment of the 
+ * constructor.
  * 
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
@@ -58,11 +60,11 @@ public class Theme {
    */
   protected Color gutterText;
   /**
-   * The color of the border that joint the gutter and the script text panel.
+   * The color of the border that joint the gutter and the script text area.
    */
   protected Color gutterBorderColor;
   /**
-   * The width of the border that joint the gutter and the script text panel.
+   * The width of the border that joint the gutter and the script text area.
    */
   protected int gutterBorderWidth;
   /**
@@ -79,7 +81,17 @@ public class Theme {
    * 'the right margin' (not to the gutter border).
    */
   protected int gutterTextPaddingRight;
+  /**
+   * Text area.
+   */
+  /**
+   * The default style. When the style requested by {@link #getStyle(String)} 
+   * not exist, this will be returned.
+   */
   protected Style plain;
+  /**
+   * The styles of this theme.
+   */
   protected Map<String, Style> styles;
 
   /**
@@ -118,7 +130,7 @@ public class Theme {
 
   /**
    * Apply the theme to the row header panel.
-   * @param rowHeader the row header to apply theme on
+   * @param rowHeader the row header to apply the theme on
    */
   public void setTheme(JTextComponentRowHeader rowHeader) {
     rowHeader.setBackground(background);
@@ -132,6 +144,10 @@ public class Theme {
     rowHeader.setPaddingRight(gutterTextPaddingRight);
   }
 
+  /**
+   * Set the default style.
+   * @param plain the style
+   */
   public void setPlain(Style plain) {
     if (plain == null) {
       throw new NullPointerException("argument 'plain' cannot be null");
@@ -139,15 +155,25 @@ public class Theme {
     this.plain = plain;
   }
 
+  /**
+   * Get the default style.
+   * @return the style
+   */
   public Style getPlain() {
     return plain;
   }
 
-  public SimpleAttributeSet getStyleAttributeSet(String styleKeys) {
+  /**
+   * Get the {@link AttributeSet} of {@code styleKeys}. For more than one 
+   * styles, separate the styles by space, e.g. 'plain comments'.
+   * @param styleKeys the style keys with keys separated by space
+   * @return the combined {@link AttributeSet}
+   */
+  public SimpleAttributeSet getStylesAttributeSet(String styleKeys) {
     if (styleKeys.indexOf(' ') != -1) {
       SimpleAttributeSet returnAttributeSet = new SimpleAttributeSet();
-      String[] keys = styleKeys.split(" ");
-      for (String _key : keys) {
+      String[] _keys = styleKeys.split(" ");
+      for (String _key : _keys) {
         returnAttributeSet.addAttributes(getStyle(_key).getAttributeSet());
       }
       return returnAttributeSet;
@@ -156,32 +182,48 @@ public class Theme {
     }
   }
 
+  /**
+   * Add style.
+   * @param styleKey the keyword of the style
+   * @param style the style
+   * @return see the return value of {@link Map#put(Object, Object)}
+   */
   public Style addStyle(String styleKey, Style style) {
     return styles.put(styleKey, style);
   }
 
+  /**
+   * Remove style by keyword.
+   * @param styleKey the keyword of the style
+   * @return see the return value of {@link Map#remove(Object)}
+   */
   public Style removeStyle(String styleKey) {
     return styles.remove(styleKey);
   }
 
   /**
-   * Get the {@link syntaxhighlighter.theme.Style} by keyword.
-   * 
+   * Get the style by keyword.
    * @param key the keyword
-   * 
    * @return the {@link syntaxhighlighter.theme.Style} related to the 
-   * {@code key}; if the style related to the <code>key</code> not exist, 
-   * the style of 'plain' will return.
+   * {@code key}; if the style related to the {@code key} not exist, the 
+   * style of 'plain' will return.
    */
   public Style getStyle(String key) {
     Style returnStyle = styles.get(key);
     return returnStyle != null ? returnStyle : plain;
   }
 
+  /**
+   * Get all styles.
+   * @return the styles
+   */
   public Map<String, Style> getStyles() {
     return new HashMap<String, Style>(styles);
   }
 
+  /**
+   * Clear all styles.
+   */
   public void clearStyles() {
     styles.clear();
   }
@@ -263,7 +305,7 @@ public class Theme {
   }
 
   /**
-   * The color of the border that joint the gutter and the script text panel.
+   * The color of the border that joint the gutter and the script text area.
    * @return the color
    */
   public Color getGutterBorderColor() {
@@ -271,7 +313,7 @@ public class Theme {
   }
 
   /**
-   * The color of the border that joint the gutter and the script text panel.
+   * The color of the border that joint the gutter and the script text area.
    * @param gutterBorderColor the color
    */
   public void setGutterBorderColor(Color gutterBorderColor) {
@@ -282,7 +324,7 @@ public class Theme {
   }
 
   /**
-   * The width of the border that joint the gutter and the script text panel.
+   * The width of the border that joint the gutter and the script text area.
    * @return the width in pixel
    */
   public int getGutterBorderWidth() {
@@ -290,7 +332,7 @@ public class Theme {
   }
 
   /**
-   * The width of the border that joint the gutter and the script text panel.
+   * The width of the border that joint the gutter and the script text area.
    * @param gutterBorderWidth in pixel
    */
   public void setGutterBorderWidth(int gutterBorderWidth) {
@@ -376,16 +418,17 @@ public class Theme {
   public String toString() {
     StringBuilder sb = new StringBuilder();
 
+    sb.append("[");
     sb.append(getClass().getName());
     sb.append(": ");
     sb.append("font: ").append(getFont());
-    sb.append(", ");
+    sb.append("; ");
     sb.append("background: ").append(getBackground());
-    sb.append(", ");
+    sb.append("; ");
     sb.append("highlightedBackground: ").append(getHighlightedBackground());
-    sb.append(", ");
+    sb.append("; ");
     sb.append("gutterText: ").append(getGutterText());
-    sb.append(", ");
+    sb.append("; ");
     sb.append("gutterBorderColor: ").append(getGutterBorderColor());
     sb.append(", ");
     sb.append("gutterBorderWidth: ").append(getGutterBorderWidth());
@@ -395,6 +438,12 @@ public class Theme {
     sb.append("gutterTextPaddingLeft: ").append(getGutterTextPaddingLeft());
     sb.append(", ");
     sb.append("gutterTextPaddingRight: ").append(getGutterTextPaddingRight());
+    sb.append(", ");
+    sb.append("styles: ");
+    for (String _key : styles.keySet()) {
+      sb.append(_key).append(":").append(styles.get(_key));
+    }
+    sb.append("]");
 
     return sb.toString();
   }

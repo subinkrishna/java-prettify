@@ -1,16 +1,23 @@
-// Copyright (C) 2011 Chan Wai Shing
+// Copyright (c) 2012 Chan Wai Shing
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Permission is hereby granted, free of charge, to any person obtaining
+// a copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to
+// permit persons to whom the Software is furnished to do so, subject to
+// the following conditions:
 //
-//      http://www.apache.org/licenses/LICENSE-2.0
+// The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
 //
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 package syntaxhighlight;
 
 import java.io.File;
@@ -29,7 +36,7 @@ public class SyntaxHighlighter extends JScrollPane {
 
   private static final long serialVersionUID = 1L;
   /**
-   * The script text panel.
+   * The script text area.
    */
   protected SyntaxHighlighterPane highlighter;
   /**
@@ -41,7 +48,7 @@ public class SyntaxHighlighter extends JScrollPane {
    */
   protected Theme theme;
   /**
-   * The Prettify object.
+   * The parser.
    */
   protected Parser parser;
   /**
@@ -51,8 +58,7 @@ public class SyntaxHighlighter extends JScrollPane {
 
   /**
    * Constructor.
-   * 
-   * @param parser 
+   * @param parser the parser to use
    * @param theme the theme for the syntax highlighter
    */
   public SyntaxHighlighter(Parser parser, Theme theme) {
@@ -61,8 +67,7 @@ public class SyntaxHighlighter extends JScrollPane {
 
   /**
    * Constructor.
-   * 
-   * @param parser 
+   * @param parser the parser to use
    * @param theme the theme for the syntax highlighter
    * @param highlighterPane the script text pane of the syntax highlighter
    */
@@ -110,9 +115,9 @@ public class SyntaxHighlighter extends JScrollPane {
   }
 
   /**
-   * Get the SyntaxHighlighterPane (the script text panel).
-   * <b>Note: Normally should not operate on the SyntaxHighlighterPane directly.</b>
-   * 
+   * Get the SyntaxHighlighterPane (the script text area).
+   * <b>Note: Normally should not operate on the SyntaxHighlighterPane 
+   * directly.</b>
    * @return the SyntaxHighlighterPane
    */
   public SyntaxHighlighterPane getHighlighter() {
@@ -123,7 +128,6 @@ public class SyntaxHighlighter extends JScrollPane {
    * Get the JTextComponentRowHeader, the line number panel.
    * <b>Note: Normally should not operate on the JTextComponentRowHeader 
    * directly.</b>
-   * 
    * @return the JTextComponentRowHeader
    */
   public JTextComponentRowHeader getHighlighterRowHeader() {
@@ -132,7 +136,6 @@ public class SyntaxHighlighter extends JScrollPane {
 
   /**
    * Get current theme.
-   * 
    * @return the current theme
    */
   public Theme getTheme() {
@@ -143,7 +146,6 @@ public class SyntaxHighlighter extends JScrollPane {
    * Set the theme.
    * Setting the theme will not re-parse the content, but will clear and apply 
    * the new theme on the script text pane.
-   * 
    * @param theme the theme
    */
   public void setTheme(Theme theme) {
@@ -161,7 +163,6 @@ public class SyntaxHighlighter extends JScrollPane {
   /**
    * Set the line number of the first line. E.g. if set 10, the line number will 
    * start count from 10 instead of 1.
-   * 
    * @param firstLine the line number of the first line
    */
   public void setFirstLine(int firstLine) {
@@ -171,7 +172,6 @@ public class SyntaxHighlighter extends JScrollPane {
 
   /**
    * Get the list of highlighted lines.
-   * 
    * @return a copy of the list
    */
   public List<Integer> getHighlightedLineList() {
@@ -181,7 +181,6 @@ public class SyntaxHighlighter extends JScrollPane {
   /**
    * Set highlighted lines. Note that this will clear all previous recorded 
    * highlighted lines.
-   * 
    * @param highlightedLineList the list that contain the highlighted lines, 
    * null means highlight no lines
    */
@@ -192,7 +191,6 @@ public class SyntaxHighlighter extends JScrollPane {
 
   /**
    * Add highlighted line.
-   * 
    * @param lineNumber the line number to highlight
    */
   public void addHighlightedLine(int lineNumber) {
@@ -202,7 +200,6 @@ public class SyntaxHighlighter extends JScrollPane {
 
   /**
    * Check the visibility of the gutter.
-   * 
    * @return true if the gutter is visible, false if not
    */
   public boolean isGutterVisible() {
@@ -211,7 +208,6 @@ public class SyntaxHighlighter extends JScrollPane {
 
   /**
    * Set the visibility of the gutter.
-   * 
    * @param visible true to make visible, false to hide it
    */
   public void setGutterVisible(boolean visible) {
@@ -226,7 +222,6 @@ public class SyntaxHighlighter extends JScrollPane {
 
   /**
    * Check the status of the mouse-over highlight effect. Default is on.
-   * 
    * @return true if turned on, false if turned off
    */
   public boolean isHighlightOnMouseOver() {
@@ -236,9 +231,8 @@ public class SyntaxHighlighter extends JScrollPane {
   /**
    * Set turn on the mouse-over highlight effect or not.
    * If set true, there will be a highlight effect on the line that the mouse 
-   * cursor currently is pointing on (on the script text panel only, not on the 
+   * cursor currently is pointing on (on the script text area only, not on the 
    * line number panel).
-   * 
    * @param highlightWhenMouseOver true to turn on, false to turn off
    */
   public void setHighlightOnMouseOver(boolean highlightWhenMouseOver) {
@@ -248,9 +242,7 @@ public class SyntaxHighlighter extends JScrollPane {
   /**
    * Set the content of the syntax highlighter. Better set it last after setting 
    * all other settings.
-   * 
    * @param file the file to read
-   * 
    * @throws IOException error occurred when reading the file
    */
   public void setContent(File file) throws IOException {
@@ -260,7 +252,6 @@ public class SyntaxHighlighter extends JScrollPane {
   /**
    * Set the content of the syntax highlighter. It is better to set other 
    * settings first and set this the last.
-   * 
    * @param content the content to set, null means no content
    */
   public void setContent(String content) {
@@ -271,11 +262,8 @@ public class SyntaxHighlighter extends JScrollPane {
 
   /**
    * Get the string content of a file.
-   * 
    * @param file the file to retrieve the content from
-   * 
    * @return the string content
-   * 
    * @throws IOException error occured when reading the file
    */
   protected static String readFile(File file) throws IOException {

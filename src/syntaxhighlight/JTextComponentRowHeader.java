@@ -1,16 +1,23 @@
-// Copyright (C) 2011 Chan Wai Shing
+// Copyright (c) 2012 Chan Wai Shing
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Permission is hereby granted, free of charge, to any person obtaining
+// a copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to
+// permit persons to whom the Software is furnished to do so, subject to
+// the following conditions:
 //
-//      http://www.apache.org/licenses/LICENSE-2.0
+// The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
 //
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 package syntaxhighlight;
 
 import java.awt.Color;
@@ -38,11 +45,10 @@ import javax.swing.text.Element;
 import javax.swing.text.JTextComponent;
 
 /**
- * A row header panel for JScrollPane.
- * It is used with JTextComponent for line number displaying.
- * Currently it only accept fixed-height line.
- * The usage of this class is not limited to this syntax highlighter, it can be 
- * used on all JTextComponent.
+ * A row header panel for {@link JScrollPane} showing the line numbers of 
+ * {@link JTextComponent}.
+ * 
+ * The text lines in {@link JTextComponent} must be fixed height.
  * 
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
@@ -52,31 +58,31 @@ public class JTextComponentRowHeader extends JPanel {
   private static final long serialVersionUID = 1L;
   /**
    * The anti-aliasing setting of the line number text. See
-   * {@link java.awt.RenderingHints}.
+   * {@link RenderingHints}.
    */
-  private Object textAntiAliasing = RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT;
+  protected Object textAntiAliasing = RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT;
   /**
-   * The color of the border that joint the gutter and the script text panel.
+   * The color of the border that joint the gutter and the script text area.
    */
-  private Color borderColor = new Color(184, 184, 184);
+  protected Color borderColor = new Color(184, 184, 184);
   /**
    * The background of the row when it is highlighted.
    */
-  private Color highlightedColor = Color.black;
+  protected Color highlightedColor = Color.black;
   /**
    * The minimum padding from 'the leftmost of the line number text' to 
    * 'the left margin'.
    */
-  private int paddingLeft = 7;
+  protected int paddingLeft = 7;
   /**
    * The minimum padding from 'the rightmost of the line number text' to 
    * 'the right margin' (not to the gutter border).
    */
-  private int paddingRight = 2;
+  protected int paddingRight = 2;
   /**
-   * The width of the border that joint the gutter and the script text panel.
+   * The width of the border that joint the gutter and the script text area.
    */
-  private int borderWidth = 1;
+  protected int borderWidth = 1;
   /**
    * The JScrollPane that it be added into.
    */
@@ -110,17 +116,17 @@ public class JTextComponentRowHeader extends JPanel {
    * The line number offset. E.g. set offset to 9 will make the first line 
    * number to appear at line 1 + 9 = 10
    */
-  private int lineNumberOffset;
+  protected int lineNumberOffset;
   /**
    * The list of line numbers that indicate which lines are needed to be 
    * highlighted.
    */
-  private final List<Integer> highlightedLineList;
+  protected final List<Integer> highlightedLineList;
   /**
    * Indicator indicate whether it is listening to the document change events 
    * or not.
    */
-  private boolean listenToDocumentUpdate;
+  protected boolean listenToDocumentUpdate;
 
   /**
    * Constructor.
@@ -377,7 +383,7 @@ public class JTextComponentRowHeader extends JPanel {
   }
 
   /**
-   * The color of the border that joint the gutter and the script text panel.
+   * The color of the border that joint the gutter and the script text area.
    * @return the color
    */
   public Color getBorderColor() {
@@ -385,7 +391,7 @@ public class JTextComponentRowHeader extends JPanel {
   }
 
   /**
-   * The color of the border that joint the gutter and the script text panel.
+   * The color of the border that joint the gutter and the script text area.
    * @param borderColor the color
    */
   public void setBorderColor(Color borderColor) {
@@ -459,7 +465,7 @@ public class JTextComponentRowHeader extends JPanel {
   }
 
   /**
-   * The width of the border that joint the gutter and the script text panel.
+   * The width of the border that joint the gutter and the script text area.
    * 
    * @return the width in pixel
    */
@@ -468,7 +474,7 @@ public class JTextComponentRowHeader extends JPanel {
   }
 
   /**
-   * The width of the border that joint the gutter and the script text panel.
+   * The width of the border that joint the gutter and the script text area.
    * 
    * @param borderWidth the width in pixel
    */
@@ -523,10 +529,19 @@ public class JTextComponentRowHeader extends JPanel {
   /**
    * Add highlighted line.
    * @param lineNumber the line number to highlight
+   * @return see the return value of {@link List#add(Object)}
    */
-  public void addHighlightedLine(int lineNumber) {
-    highlightedLineList.add(lineNumber);
+  public boolean addHighlightedLine(int lineNumber) {
+    boolean returnValue = highlightedLineList.add(lineNumber);
     repaint();
+    return returnValue;
+  }
+
+  /**
+   * Clear highlighted lines.
+   */
+  public void clearHighlightedLine() {
+    highlightedLineList.clear();
   }
 
   /**

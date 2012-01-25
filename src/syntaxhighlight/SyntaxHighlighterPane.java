@@ -1,4 +1,4 @@
-// Copyright (c) 2011 Chan Wai Shing
+// Copyright (c) 2012 Chan Wai Shing
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -411,7 +411,7 @@ public class SyntaxHighlighterPane extends JTextPane {
    * @param offset the offset
    */
   public void setLineNumberOffset(int offset) {
-    lineNumberOffset = Math.max(lineNumberOffset, offset);
+    lineNumberOffset = Math.max(0, offset);
     repaint();
   }
 
@@ -449,7 +449,7 @@ public class SyntaxHighlighterPane extends JTextPane {
   /**
    * Set turn on the mouse-over highlight effect or not. Default is on.
    * If set true, there will be a highlight effect on the line that the mouse 
-   * cursor currently is pointing on (on the script text panel only, not on the 
+   * cursor currently is pointing on (on the script text area only, not on the 
    * line number panel).
    * 
    * @param highlightWhenMouseOver true to turn on, false to turn off

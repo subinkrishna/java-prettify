@@ -9,12 +9,19 @@ import syntaxhighlight.ParseResult;
 import syntaxhighlight.Parser;
 
 /**
+ * The prettify parser for syntax highlight.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class PrettifyParser implements Parser {
 
+  /**
+   * The prettify parser.
+   */
   protected Prettify prettify;
 
+  /**
+   * Constructor.
+   */
   public PrettifyParser() {
     prettify = new Prettify();
   }
@@ -28,11 +35,10 @@ public class PrettifyParser implements Parser {
 
     List<ParseResult> returnList = new ArrayList<ParseResult>();
 
-    Integer startPos = 0, endPos = 0;
     // apply style according to the style list
     for (int i = 0, iEnd = decorations.size(); i < iEnd; i += 2) {
-      endPos = i + 2 < iEnd ? (Integer) decorations.get(i + 2) : content.length();
-      startPos = (Integer) decorations.get(i);
+      int endPos = i + 2 < iEnd ? (Integer) decorations.get(i + 2) : content.length();
+      int startPos = (Integer) decorations.get(i);
       returnList.add(new ParseResult(startPos, endPos - startPos, Arrays.asList(new String[]{(String) decorations.get(i + 1)})));
     }
 

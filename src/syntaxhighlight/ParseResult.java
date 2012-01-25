@@ -1,4 +1,4 @@
-// Copyright (c) 2011 Chan Wai Shing
+// Copyright (c) 2012 Chan Wai Shing
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -26,32 +26,36 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Matched result, it will be generated when parsing the content.
+ * The parser parsed result.
+ * 
+ * This class include the information needed to highlight the syntax. 
+ * Information includes where the content located in the document (offset and 
+ * length) and what style(s) should be applied on that segment of content.
  * 
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class ParseResult {
 
   /**
-   * The start position in the document for this matched result.
+   * The start position of the content.
    */
   protected int offset;
   /**
-   * The length of the matched result.
+   * The length of the content.
    */
   protected int length;
   /**
-   * The style key for this matched result, see {@link syntaxhighlighter.theme}.
+   * The style keys of the content. The style at higher index of the list will 
+   * override the style of the lower index.
    */
   protected List<String> styleKeys;
 
   /**
    * Constructor.
    * 
-   * @param offset the position in the document for this matched result
-   * @param length the length of the matched result.
-   * @param styleKeys the style key for this matched result, cannot be null, see 
-   * {@link syntaxhighlighter.theme}
+   * @param offset the start position of the content
+   * @param length the length of the content
+   * @param styleKeys the style keys of the content
    */
   public ParseResult(int offset, int length, List<String> styleKeys) {
     this.offset = offset;
@@ -60,37 +64,42 @@ public class ParseResult {
   }
 
   /**
-   * The position in the document for this matched result.
-   * @return the offset in the document
+   * The start position of the content.
+   * @return the start position of the content
    */
   public int getOffset() {
     return offset;
   }
 
   /**
-   * The position in the document for this matched result.
-   * @param offset the offset in the document
+   * The start position of the content.
+   * @param offset the start position of the content
    */
   public void setOffset(int offset) {
     this.offset = offset;
   }
 
   /**
-   * The length of the matched result.
-   * @return the length
+   * The length of the content.
+   * @return the length of the content
    */
   public int getLength() {
     return length;
   }
 
   /**
-   * The length of the matched result.
-   * @param length the length
+   * The length of the content.
+   * @param length the length of the content
    */
   public void setLength(int length) {
     this.length = length;
   }
 
+  /**
+   * Get the style keys represented by one string key, see 
+   * {@link Theme#getStylesAttributeSet(String)}.
+   * @return the style keys of the content
+   */
   public String getStyleKeysString() {
     StringBuilder sb = new StringBuilder(10);
     for (int i = 0, iEnd = styleKeys.size(); i < iEnd; i++) {
@@ -102,18 +111,35 @@ public class ParseResult {
     return sb.toString();
   }
 
+  /**
+   * The style keys of the content.
+   * @param styleKeys the style keys of the content
+   */
   public void setStyleKeys(List<String> styleKeys) {
     this.styleKeys = new ArrayList<String>(styleKeys);
   }
 
+  /**
+   * The style keys of the content.
+   * @param styleKey the style key
+   * @return see the return value of {@link List#add(Object)}
+   */
   public boolean addStyleKey(String styleKey) {
     return styleKeys.add(styleKey);
   }
 
+  /**
+   * The style keys of the content.
+   * @param styleKey the style key
+   * @return see the return value of {@link List#remove(Object)}
+   */
   public boolean removeStyleKey(String styleKey) {
     return styleKeys.remove(styleKey);
   }
 
+  /**
+   * The style keys of the content.
+   */
   public void clearStyleKeys() {
     styleKeys.clear();
   }
@@ -126,6 +152,9 @@ public class ParseResult {
     return new ArrayList<String>(styleKeys);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();

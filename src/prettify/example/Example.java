@@ -90,8 +90,9 @@ public class Example {
         long start, end;
         start = System.currentTimeMillis();
 
-        // initialize the parser
+        // the Prettify parser
         Parser parser = new PrettifyParser();
+
         // use Default theme
         SyntaxHighlighter highlighter = new SyntaxHighlighter(parser, new ThemeDefault());
         // set the line number count from 10 instead of 1
