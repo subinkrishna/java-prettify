@@ -49,7 +49,7 @@ public class LangCss extends Lang {
     // Quoted strings.  <string1> and <string2>
     _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_STRING, Pattern.compile("^\\\"(?:[^\n\r\f\\\\\\\"]|\\\\(?:\r\n?|\n|\f)|\\\\[\\s\\S])*\\\""), null}));
     _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_STRING, Pattern.compile("^\\'(?:[^\n\r\f\\\\\\']|\\\\(?:\r\n?|\n|\f)|\\\\[\\s\\S])*\\'"), null}));
-    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{"lang-css-str", Pattern.compile("^url\\(([^\\)\\\"\\']*)\\)", Pattern.CASE_INSENSITIVE)}));
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{"lang-css-str", Pattern.compile("^url\\(([^\\)\\\"\\']+)\\)", Pattern.CASE_INSENSITIVE)}));
     _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_KEYWORD, Pattern.compile("^(?:url|rgb|\\!important|@import|@page|@media|@charset|inherit)(?=[^\\-\\w]|$)", Pattern.CASE_INSENSITIVE), null}));
     // A property name -- an identifier followed by a colon.
     _fallthroughStylePatterns.add(Arrays.asList(new Object[]{"lang-css-kw", Pattern.compile("^(-?(?:[_a-z]|(?:\\\\[0-9a-f]+ ?))(?:[_a-z0-9\\-]|\\\\(?:\\\\[0-9a-f]+ ?))*)\\s*:", Pattern.CASE_INSENSITIVE)}));

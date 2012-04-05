@@ -102,6 +102,6 @@ public class LangLisp extends Lang {
   }
 
   public static List<String> getFileExtensions() {
-    return Arrays.asList(new String[]{"cl", "el", "lisp", "lsp", "scm"});
+    return Arrays.asList(new String[]{"cl", "el", "lisp", "lsp", "scm", "ss", "rkt"});
   }
 }

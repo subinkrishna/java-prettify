@@ -10,6 +10,9 @@ Class [class]
     End Sub
 End Class
 
+' Comment
+‘ Second Line comment with a smart quote _
+  continued line using VB6 syntax.
 Module [module]
     Sub Main()
         [class].[shared](True)

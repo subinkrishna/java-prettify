@@ -16,4 +16,6 @@ TABLE.foo TR.bar A#visited { color: #001123; font-family: "monospace" }
   * regardless of case.
   */
 blink { text-decoration: BLINK !IMPORTANT; font-weight: bolder }
+/* Empty url() was causing infinite recursion */
+a { background-image: url(); }
 -->

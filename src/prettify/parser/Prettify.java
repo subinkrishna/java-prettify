@@ -104,12 +104,13 @@ public class Prettify {
           + "transient";
   public static final String CSHARP_KEYWORDS = JAVA_KEYWORDS + ","
           + "as,base,by,checked,decimal,delegate,descending,dynamic,event,"
-          + "fixed,foreach,from,group,implicit,in,interface,internal,into,is,lock,"
-          + "object,out,override,orderby,params,partial,readonly,ref,sbyte,sealed,"
-          + "stackalloc,string,select,uint,ulong,unchecked,unsafe,ushort,var";
+          + "fixed,foreach,from,group,implicit,in,interface,internal,into,is,let,"
+          + "lock,object,out,override,orderby,params,partial,readonly,ref,sbyte,"
+          + "sealed,stackalloc,string,select,uint,ulong,unchecked,unsafe,ushort,"
+          + "var,virtual,where";
   public static final String COFFEE_KEYWORDS = "all,and,by,catch,class,else,extends,false,finally,"
           + "for,if,in,is,isnt,loop,new,no,not,null,of,off,on,or,return,super,then,"
-          + "true,try,unless,until,when,while,yes";
+          + "throw,true,try,unless,until,when,while,yes";
   public static final String JSCRIPT_KEYWORDS = COMMON_KEYWORDS + ","
           + "debugger,eval,export,function,get,null,set,undefined,var,with,"
           + "Infinity,NaN";
@@ -621,8 +622,9 @@ public class Prettify {
                     null,
                     "#"}));
         }
+        // #include <stdio.h>
         fallthroughStylePatterns.add(Arrays.asList(new Object[]{PR_STRING,
-                  Pattern.compile("^<(?:(?:(?:\\.\\.\\/)*|\\/?)(?:[\\w-]+(?:\\/[\\w-]+)+)?[\\w-]+\\.h|[a-z]\\w*)>"),
+                  Pattern.compile("^<(?:(?:(?:\\.\\.\\/)*|\\/?)(?:[\\w-]+(?:\\/[\\w-]+)+)?[\\w-]+\\.h(?:h|pp|\\+\\+)?|[a-z]\\w*)>"),
                   null}));
       } else {
         shortcutStylePatterns.add(Arrays.asList(new Object[]{PR_COMMENT,

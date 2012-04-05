@@ -10,6 +10,9 @@
     `END`KWDEnd`END`PLN `END`KWDSub`END`PLN
 `END`KWDEnd`END`PLN `END`KWDClass`END`PLN
 
+`END`COM' Comment`END`PLN
+`END`COM‘ Second Line comment with a smart quote _
+  continued line using VB6 syntax.`END`PLN
 `END`KWDModule`END`PLN [module]
     `END`KWDSub`END`PLN Main`END`PUN()`END`PLN
         [class]`END`PUN.`END`PLN[shared]`END`PUN(`END`LITTrue`END`PUN)`END`PLN
