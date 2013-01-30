@@ -1,0 +1,41 @@
+part of myLib;
+
+part 'something.dart';
+
+import 'dart:math' as test show foo, bar;
+
+class Point {
+  final num x, y;
+
+  Point(this.x, this.y);
+  Point.zero() : x = 0, y = 0;  // Named constructor
+                                // with an initializer list.
+
+  num distanceTo(Point other) {
+    var dx = x - other.x;
+    var dy = y - other.y;
+    return sqrt(dx * dx + dy * dy);
+  }
+}
+
+// This is a single-line comment.
+
+/*
+This is a
+multiline comment.
+*/
+
+main() {
+  Point p = new Point(7, 12);
+  String thing = 'It\'s awesome!';
+  String thing2 = '''
+This is a test! \'''
+This is the end of the test''';
+  String thing3 = r"""
+This is a raw
+multiline string!""";
+  num x = 0x123ABC;
+  num y = 1.8e-12;
+  bool flag = false;
+  String raw = r"This is a raw string, where \n doesn't matter";
+}

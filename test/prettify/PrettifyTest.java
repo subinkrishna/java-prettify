@@ -106,6 +106,7 @@ public class PrettifyTest {
     test("c", "C_lang", false);
     test(null, "Cpp", false);
     test("cpp", "Cpp_lang", false);
+    test(null, "dart", false);
     test(null, "javascript", false);
     test(null, "perl", false);
     test(null, "python", false);
