@@ -16,6 +16,8 @@ package prettify;
 import prettify.parser.Util;
 import prettify.parser.Job;
 import prettify.parser.Prettify;
+
+import java.util.Arrays;
 import java.util.ListIterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -89,9 +91,19 @@ public class PrettifyTest {
     Job job = new Job(0, source);
     prettify.langHandlerForExtension(extension, source).decorate(job);
     List<Object> decorations = removeJSLineNumbering ? removeNewLines(job.getDecorations(), source) : job.getDecorations();
-    List<Object> compare = readResult(new String(readFile(new File(packagePath + "result/" + code + ".txt")), "UTF-8").replace("&lt;", "<").replace("&gt;", ">").replace("&nbsp;", " ").replace("&amp;", "&"), removeJSLineNumbering);
-//        assertArrayEquals(code + "\n" + compare + "\n" + decorations, compare.toArray(), decorations.toArray()); // for debug
-    assertArrayEquals(code, compare.toArray(), decorations.toArray());
+    final byte[] bytes = readFile(new File(packagePath + "result/" + code + ".txt"));
+    List<Object> compare = readResult(new String(bytes, "UTF-8").replace("&lt;", "<").replace("&gt;", ">").replace("&nbsp;", " ").replace("&amp;", "&"), removeJSLineNumbering);
+
+    if (Arrays.equals(compare.toArray(), decorations.toArray())) {
+      return;
+    }
+
+    final StringBuilder errorMessage = new StringBuilder();
+    errorMessage.append("Prettify failed. Expected:\n");
+    errorMessage.append(prettify(source, compare));
+    errorMessage.append("\n\nBut was:\n");
+    errorMessage.append(prettify(source, decorations));
+    fail(errorMessage.toString());
   }
 
   @Test
@@ -300,4 +312,24 @@ public class PrettifyTest {
 
     return returnList;
   }
+
+	private static String prettify(String source, List<Object> decorations) {
+		if (decorations.size() % 2 != 0) {
+			throw new IllegalArgumentException();
+		}
+
+		final StringBuilder result = new StringBuilder();
+		for (int index = 0; index < decorations.size(); index+=2) {
+			final int start = ((Integer)decorations.get(index)).intValue();
+			final int end = index < decorations.size() - 2 ? ((Integer)decorations.get(index + 2)).intValue() : source.length();
+			final String type = (String)decorations.get(index + 1);
+			result.append("`");
+			result.append(type.toUpperCase());
+			result.append(source.substring(start, end));
+			result.append("`");
+			result.append("END");
+		}
+
+		return result.toString();
+	}
 }
