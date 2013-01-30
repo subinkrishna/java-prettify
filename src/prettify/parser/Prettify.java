@@ -129,7 +129,7 @@ public class Prettify {
           + "function,in,local,set,then,until";
   public static final String ALL_KEYWORDS = CPP_KEYWORDS + "," + CSHARP_KEYWORDS + "," + JSCRIPT_KEYWORDS + "," + PERL_KEYWORDS + ","
           + PYTHON_KEYWORDS + "," + RUBY_KEYWORDS + "," + SH_KEYWORDS;
-  public static final Pattern C_TYPES = Pattern.compile("^(DIR|FILE|vector|(de|priority_)?queue|list|stack|(const_)?iterator|(multi)?(set|map)|bitset|u?(int|float)\\d*)");
+  public static final Pattern C_TYPES = Pattern.compile("^(DIR|FILE|vector|(de|priority_)?queue|list|stack|(const_)?iterator|(multi)?(set|map)|bitset|u?(int|float)\\d*)\\b");
   // token style names.  correspond to css classes
   /**
    * token style for a string literal
