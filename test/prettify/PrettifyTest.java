@@ -119,6 +119,7 @@ public class PrettifyTest {
     test(null, "Cpp", false);
     test("cpp", "Cpp_lang", false);
     test(null, "dart", false);
+    test("dart", "dart_lang", false);
     test(null, "javascript", false);
     test(null, "perl", false);
     test(null, "python", false);

@@ -1,0 +1,41 @@
+`KWDpart of`END`PLN myLib`END`PUN;`END`PLN
+
+`END`KWDpart`END`PLN `END`STR'something.dart'`END`PUN;`END`PLN
+
+`END`KWDimport`END`PLN `END`STR'dart:math'`END`PLN `END`KWDas`END`PLN test `END`KWDshow`END`PLN foo`END`PUN,`END`PLN bar`END`PUN;`END`PLN
+
+`END`KWDclass`END`PLN Point `END`PUN{`END`PLN
+  `END`KWDfinal`END`PLN `END`TYPnum`END`PLN x`END`PUN,`END`PLN y`END`PUN;`END`PLN
+
+  Point`END`PUN(`END`KWDthis`END`PUN.`END`PLNx`END`PUN,`END`PLN `END`KWDthis`END`PUN.`END`PLNy`END`PUN);`END`PLN
+  Point`END`PUN.`END`PLNzero`END`PUN()`END`PLN `END`PUN:`END`PLN x `END`PUN=`END`PLN `END`LIT0`END`PUN,`END`PLN y `END`PUN=`END`PLN `END`LIT0`END`PUN;`END`PLN  `END`COM// Named constructor`END`PLN
+                                `END`COM// with an initializer list.`END`PLN
+
+  `END`TYPnum`END`PLN distanceTo`END`PUN(`END`PLNPoint other`END`PUN)`END`PLN `END`PUN{`END`PLN
+    `END`KWDvar`END`PLN dx `END`PUN=`END`PLN x `END`PUN-`END`PLN other`END`PUN.`END`PLNx`END`PUN;`END`PLN
+    `END`KWDvar`END`PLN dy `END`PUN=`END`PLN y `END`PUN-`END`PLN other`END`PUN.`END`PLNy`END`PUN;`END`PLN
+    `END`KWDreturn`END`PLN sqrt`END`PUN(`END`PLNdx `END`PUN*`END`PLN dx `END`PUN+`END`PLN dy `END`PUN*`END`PLN dy`END`PUN);`END`PLN
+  `END`PUN}`END`PLN
+`END`PUN}`END`PLN
+
+`END`COM// This is a single-line comment.`END`PLN
+
+`END`COM/*
+This is a
+multiline comment.
+*/`END`PLN
+
+main`END`PUN()`END`PLN `END`PUN{`END`PLN
+  Point p `END`PUN=`END`PLN `END`KWDnew`END`PLN Point`END`PUN(`END`LIT7`END`PUN,`END`PLN `END`LIT12`END`PUN);`END`PLN
+  `END`TYPString`END`PLN thing `END`PUN=`END`PLN `END`STR'It\'s awesome!'`END`PUN;`END`PLN
+  `END`TYPString`END`PLN thing2 `END`PUN=`END`PLN `END`STR'''
+This is a test! \'''
+This is the end of the test'''`END`PUN;`END`PLN
+  `END`TYPString`END`PLN thing3 `END`PUN=`END`PLN `END`STRr"""
+This is a raw
+multiline string!"""`END`PUN;`END`PLN
+  `END`TYPnum`END`PLN x `END`PUN=`END`PLN `END`LIT0x123ABC`END`PUN;`END`PLN
+  `END`TYPnum`END`PLN y `END`PUN=`END`PLN `END`LIT1.8e-12`END`PUN;`END`PLN
+  `END`TYPbool`END`PLN flag `END`PUN=`END`PLN `END`KWDfalse`END`PUN;`END`PLN
+  `END`TYPString`END`PLN raw `END`PUN=`END`PLN `END`STRr"This is a raw string, where \n doesn't matter"`END`PUN;`END`PLN
+`END`PUN}`END
