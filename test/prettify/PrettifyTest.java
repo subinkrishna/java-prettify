@@ -121,6 +121,7 @@ public class PrettifyTest {
     test("js", "issue12_lang", false);
     test(null, "issue14a", false);
     test(null, "issue14b", false);
+    test("sh", "issue165", false);
     test(null, "issue20", false);
     test("c", "issue201", false);
     test(null, "issue21", false);

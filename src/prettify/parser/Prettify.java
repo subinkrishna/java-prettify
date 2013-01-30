@@ -618,7 +618,7 @@ public class Prettify {
         } else {
           // Stop C preprocessor declarations at an unclosed open comment
           shortcutStylePatterns.add(Arrays.asList(new Object[]{PR_COMMENT,
-                    Pattern.compile("^#(?:(?:define|elif|else|endif|error|ifdef|include|ifndef|line|pragma|undef|warning)\\b|[^\r\n]*)"),
+                    Pattern.compile("^#(?:(?:define|e(?:l|nd)if|else|error|ifn?def|include|line|pragma|undef|warning)\\b|[^\r\n]*)"),
                     null,
                     "#"}));
         }
@@ -710,8 +710,45 @@ public class Prettify {
     fallthroughStylePatterns.add(Arrays.asList(new Object[]{PR_PLAIN,
               Pattern.compile("^\\\\[\\s\\S]?"),
               null}));
+
+    // The Bash man page says
+
+    // A word is a sequence of characters considered as a single
+    // unit by GRUB. Words are separated by metacharacters,
+    // which are the following plus space, tab, and newline: { }
+    // | & $ ; < >
+    // ...
+
+    // A word beginning with # causes that word and all remaining
+    // characters on that line to be ignored.
+
+    // which means that only a '#' after /(?:^|[{}|&$;<>\s])/ starts a
+    // comment but empirically
+    // $ echo {#}
+    // {#}
+    // $ echo \$#
+    // $#
+    // $ echo }#
+    // }#
+
+    // so /(?:^|[|&;<>\s])/ is more appropriate.
+
+    // http://gcc.gnu.org/onlinedocs/gcc-2.95.3/cpp_1.html#SEC3
+    // suggests that this definition is compatible with a
+    // default mode that tries to use a single token definition
+    // to recognize both bash/python style comments and C
+    // preprocessor directives.
+
+    // This definition of punctuation does not include # in the list of
+    // follow-on exclusions, so # will not be broken before if preceeded
+    // by a punctuation character.  We could try to exclude # after
+    // [|&;<>] but that doesn't seem to cause many major problems.
+    // If that does turn out to be a problem, we should change the below
+    // when hc is truthy to include # in the run of punctuation characters
+    // only when not followint [|&;<>].
+    final String punctation = "^.[^\\s\\w\\.$@\\'\\\"\\`\\/\\\\]*";
     fallthroughStylePatterns.add(Arrays.asList(new Object[]{PR_PUNCTUATION,
-              Pattern.compile("^.[^\\s\\w\\.$@\\'\\\"\\`\\/\\#\\\\]*"),
+              Pattern.compile(punctation),
               null}));
 
     return new CreateSimpleLexer(shortcutStylePatterns, fallthroughStylePatterns);

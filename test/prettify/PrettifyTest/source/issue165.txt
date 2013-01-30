@@ -1,0 +1,3 @@
+# Comment
+local $x = ${#x[@]}  # Previous is not a comment
+# A comment

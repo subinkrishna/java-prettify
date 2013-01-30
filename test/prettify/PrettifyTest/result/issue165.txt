@@ -1,0 +1,3 @@
+`COM# Comment`END`PLN
+`END`KWDlocal`END`PLN $x `END`PUN=`END`PLN $`END`PUN{#`END`PLNx`END`PUN[@]}`END`PLN  `END`COM# Previous is not a comment`END`PLN
+`END`COM# A comment`END
