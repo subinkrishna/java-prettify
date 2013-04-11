@@ -33,6 +33,8 @@ import prettify.lang.LangLisp;
 import prettify.lang.LangLua;
 import prettify.lang.LangMl;
 import prettify.lang.LangN;
+import prettify.lang.LangR;
+import prettify.lang.LangRd;
 import prettify.lang.LangScala;
 import prettify.lang.LangSql;
 import prettify.lang.LangTcl;
@@ -358,6 +360,8 @@ public class Prettify {
       register(LangLua.class);
       register(LangMl.class);
       register(LangN.class);
+      register(LangR.class);
+      register(LangRd.class);
       register(LangScala.class);
       register(LangSql.class);
       register(LangTex.class);

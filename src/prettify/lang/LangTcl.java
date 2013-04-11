@@ -21,8 +21,9 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 /**
- * Registers a language handler for TCL
+ * This is similar to the lang-tcl.js in JavaScript Prettify.
  *
+ * All comments are adapted from the JavaScript Prettify.
  *
  * To use, include prettify.js and this file in your HTML page.
  * Then put your code in an HTML tag like
