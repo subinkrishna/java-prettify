@@ -18,4 +18,5 @@ TABLE`END`PUN.`END`PLNfoo TR`END`PUN.`END`PLNbar A`END`PUN#`END`PLNvisited `END`
 blink `END`PUN{`END`PLN `END`KWDtext-decoration`END`PUN:`END`PLN BLINK `END`KWD!IMPORTANT`END`PUN;`END`PLN `END`KWDfont-weight`END`PUN:`END`PLN bolder `END`PUN}`END`PLN
 `END`COM/* Empty url() was causing infinite recursion */`END`PLN
 a `END`PUN{`END`PLN `END`KWDbackground-image`END`PUN:`END`PLN `END`KWDurl`END`PUN();`END`PLN `END`PUN}`END`PLN
+p`END`PUN#`END`PLNfeatured`END`PUN{`END`KWDbackground`END`PUN:`END`LIT#fea`END`PUN}`END`PLN
 `END`COM--&gt;`END

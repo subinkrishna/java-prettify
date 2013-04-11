@@ -60,7 +60,7 @@ public class LangCss extends Lang {
     // A number possibly containing a suffix.
     _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("^(?:\\d+|\\d*\\.\\d+)(?:%|[a-z]+)?", Pattern.CASE_INSENSITIVE)}));
     // A hex color
-    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("^#(?:[0-9a-f]{3}){1,2}", Pattern.CASE_INSENSITIVE)}));
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("^#(?:[0-9a-f]{3}){1,2}\\b", Pattern.CASE_INSENSITIVE)}));
     // An identifier
     _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^-?(?:[_a-z]|(?:\\\\[\\da-f]+ ?))(?:[_a-z\\d\\-]|\\\\(?:\\\\[\\da-f]+ ?))*", Pattern.CASE_INSENSITIVE)}));
     // A run of punctuation
