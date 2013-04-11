@@ -27,6 +27,7 @@ import prettify.lang.LangAppollo;
 import prettify.lang.LangClj;
 import prettify.lang.LangCss;
 import prettify.lang.LangDart;
+import prettify.lang.LangErlang;
 import prettify.lang.LangGo;
 import prettify.lang.LangHs;
 import prettify.lang.LangLisp;
@@ -354,6 +355,7 @@ public class Prettify {
       register(LangClj.class);
       register(LangCss.class);
       register(LangDart.class);
+      register(LangErlang.class);
       register(LangGo.class);
       register(LangHs.class);
       register(LangLisp.class);

@@ -168,6 +168,7 @@ public class PrettifyTest {
     test("yaml", "yaml2", false);
     test("tcl", "tcl_lang", false);
     test("r", "r_lang", false);
+    test("erlang", "erlang", false);
   }
 
   /**

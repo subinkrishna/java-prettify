@@ -1,0 +1,25 @@
+`COM% Sample comment`END`PLN
+
+`END`KWD-module`END`PLN(my_test)`END`PUN.`END`PLN
+`END`KWD-include_lib`END`PLN(`END`STR"my_sample_lib.hrl"`END`PLN)`END`PUN.`END`PLN
+`END`KWD-export`END`PLN([
+    test/`END`LIT2`END`PLN
+])`END`PUN.`END`PLN
+
+`END`COM%% @doc Define a macro`END`PLN
+`END`KWD-define`END`PLN(my_macro`END`PUN,`END`PLN `END`TYPVariable`END`PLN)`END`PUN.`END`PLN
+
+`END`COM%% @doc My function`END`PLN
+test(`END`TYPVariables`END`PUN,`END`PLN `END`TYPMoreVariables`END`PLN) -&gt;
+    `END`COM% Inline comment`END`PLN
+    {ok`END`PUN,`END`TYPScanned`END`PUN,`END`TYP_`END`PLN} = my_lib:do_stuff()`END`PUN,`END`PLN
+
+    `END`TYPVariable`END`PLN = `END`KWDfun`END`PLN(`END`TYPV`END`PLN) -&gt; {ok`END`PUN,`END`PLN `END`TYPV`END`PLN} `END`KWDend`END`PUN,`END`PLN
+
+    `END`KWDtry`END`PLN `END`LIT?my_macro`END`PLN({value`END`PUN,`END`PLN test}) `END`KWDof`END`PLN
+        {value`END`PUN,`END`PLN `END`TYPResult`END`PUN,`END`PLN `END`TYP_`END`PLN} -&gt;
+            {ok`END`PUN,`END`PLN `END`TYPResult`END`PLN}
+    `END`KWDcatch`END`PLN
+        `END`TYPType`END`PLN:`END`TYPError`END`PLN -&gt;
+            {`END`LIT'error'`END`PUN,`END`PLN `END`TYPType`END`PUN,`END`PLN `END`TYPError`END`PLN}
+    `END`KWDend`END`PUN.`END'

@@ -1,0 +1,25 @@
+% Sample comment
+
+-module(my_test).
+-include_lib("my_sample_lib.hrl").
+-export([
+    test/2
+]).
+
+%% @doc Define a macro
+-define(my_macro, Variable).
+
+%% @doc My function
+test(Variables, MoreVariables) ->
+    % Inline comment
+    {ok,Scanned,_} = my_lib:do_stuff(),
+
+    Variable = fun(V) -> {ok, V} end,
+
+    try ?my_macro({value, test}) of
+        {value, Result, _} ->
+            {ok, Result}
+    catch
+        Type:Error ->
+            {'error', Type, Error}
+    end.
