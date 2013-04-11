@@ -1,0 +1,9 @@
+200 REM ----- method teardown
+210 PRINT "green"
+220 RETURN
+470 IF af=0 THEN GOTO 520
+480 FOR j=1 TO af
+500 ac=pf(j) : me$=STR$(j)+". factor" : GOSUB 100
+510 NEXT
+530 RETURN
+1000 DATA "one", 1, 0

@@ -24,6 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import prettify.lang.LangAppollo;
+import prettify.lang.LangBasic;
 import prettify.lang.LangClj;
 import prettify.lang.LangCss;
 import prettify.lang.LangDart;
@@ -35,6 +36,7 @@ import prettify.lang.LangLua;
 import prettify.lang.LangMl;
 import prettify.lang.LangMumps;
 import prettify.lang.LangN;
+import prettify.lang.LangPascal;
 import prettify.lang.LangR;
 import prettify.lang.LangRd;
 import prettify.lang.LangScala;
@@ -353,6 +355,7 @@ public class Prettify {
       registerLangHandler(sourceDecorator(decorateSourceMap), Arrays.asList(new String[]{"proto"}));
 
       register(LangAppollo.class);
+      register(LangBasic.class);
       register(LangClj.class);
       register(LangCss.class);
       register(LangDart.class);
@@ -364,6 +367,7 @@ public class Prettify {
       register(LangMl.class);
       register(LangMumps.class);
       register(LangN.class);
+      register(LangPascal.class);
       register(LangR.class);
       register(LangRd.class);
       register(LangScala.class);

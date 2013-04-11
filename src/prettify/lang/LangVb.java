@@ -59,8 +59,10 @@ public class LangVb extends Lang {
     _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_COMMENT, Pattern.compile("^REM\\b[^\\r\\n\\u2028\\u2029]*", Pattern.CASE_INSENSITIVE)}));
     // A boolean, numeric, or date literal.
     _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_LITERAL, Pattern.compile("^(?:True\\b|False\\b|Nothing\\b|\\d+(?:E[+\\-]?\\d+[FRD]?|[FRDSIL])?|(?:&H[0-9A-F]+|&O[0-7]+)[SIL]?|\\d*\\.\\d+(?:E[+\\-]?\\d+)?[FRD]?|#\\s+(?:\\d+[\\-\\/]\\d+[\\-\\/]\\d+(?:\\s+\\d+:\\d+(?::\\d+)?(\\s*(?:AM|PM))?)?|\\d+:\\d+(?::\\d+)?(\\s*(?:AM|PM))?)\\s+#)", Pattern.CASE_INSENSITIVE)}));
-    // An identifier?
-    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^(?:(?:[a-z]|_\\w)\\w*|\\[(?:[a-z]|_\\w)\\w*\\])", Pattern.CASE_INSENSITIVE)}));
+    // An identifier.  Keywords can be turned into identifers
+    // with square brackets, and there may be optional type
+    // characters after a normal identifier in square brackets.
+    _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PLAIN, Pattern.compile("^(?:(?:[a-z]|_\\w)\\w*(?:\\[[%&@!#]+\\])?|\\[(?:[a-z]|_\\w)\\w*\\])", Pattern.CASE_INSENSITIVE)}));
     // A run of punctuation
     _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_PUNCTUATION, Pattern.compile("^[^\\w\\t\\n\\r \\\"\\'\\[\\]\\xA0\\u2018\\u2019\\u201C\\u201D\\u2028\\u2029]+")}));
     // Square brackets

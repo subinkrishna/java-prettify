@@ -1,0 +1,21 @@
+(* some comment here *)
+PROCEDURE TestCase.AssertEquals(msg:String; expect, act:Longint);
+VAR ex, ac:String;
+BEGIN
+  IF expect <> act THEN
+  BEGIN
+    Str(expect, ex);
+    Fail(Concat(msg,' expected ',ex,' but was ',ac));
+  END;
+
+  factors := new(ArrayListPtr, Init);
+
+  FOR candidate := 2 TO i DO
+  BEGIN
+    WHILE i MOD candidate = 0 DO
+    BEGIN
+      factors^.Add(candidate);
+      i := i DIV candidate;
+    END;
+  END;
+END;
