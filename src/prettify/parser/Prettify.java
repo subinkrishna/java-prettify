@@ -95,13 +95,13 @@ public class Prettify {
   // Keyword lists for various languages.
   public static final String FLOW_CONTROL_KEYWORDS = "break,continue,do,else,for,if,return,while";
   public static final String C_KEYWORDS = FLOW_CONTROL_KEYWORDS + "," + "auto,case,char,const,default,"
-          + "double,enum,extern,float,goto,int,long,register,short,signed,sizeof,"
-          + "static,struct,switch,typedef,union,unsigned,void,volatile";
+          + "double,enum,extern,float,goto,inline,int,long,register,short,signed,"
+          + "sizeof,static,struct,switch,typedef,union,unsigned,void,volatile";
   public static final String COMMON_KEYWORDS = C_KEYWORDS + "," + "catch,class,delete,false,import,"
           + "new,operator,private,protected,public,this,throw,true,try,typeof";
   public static final String CPP_KEYWORDS = COMMON_KEYWORDS + "," + "alignof,align_union,asm,axiom,bool,"
           + "concept,concept_map,const_cast,constexpr,decltype,"
-          + "dynamic_cast,explicit,export,friend,inline,late_check,"
+          + "dynamic_cast,explicit,export,friend,generic,late_check,"
           + "mutable,namespace,nullptr,reinterpret_cast,static_assert,static_cast,"
           + "template,typeid,typename,using,virtual,where";
   public static final String JAVA_KEYWORDS = COMMON_KEYWORDS + ","
