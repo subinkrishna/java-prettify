@@ -1,0 +1,15 @@
+HDR ; -- prt/display header
+ N X,I
+ I '$D(VALMHDR) X:$G(VALM("HDR"))]"" VALM("HDR")
+ ; -- prt hdr line
+ W:'$D(VALMPG1) @IOF K VALMPG1
+ W:VALMCC $C(13)_IOUON_$C(13)_IOINHI_$C(13)       ; -- turn on undln/hi
+ I $E(IOST,1,2)="C-" D IOXY^VALM4(0,0)            ; -- position cursor
+ W $E(VALM("TITLE"),1,30)                         ; -- prt title
+ W:VALMCC IOINORM,IOUON                           ; -- turn off hi
+ W $J("",30-$L(VALM("TITLE")))                    ; -- fill in w/blanks
+ I $E(IOST,1,2)="C-" W $C(13) D IOXY^VALM4(30,0)  ; -- position cursor
+ W $J("",((VALMWD-80)/2)),$$HTE^XLFDT($H,1),$J("",10+((VALMWD-80)/2)),"Page: ",$J(VALMPGE,4)," of ",$J($$PAGE^VALM4(VALMCNT,VALM("LINES")),4)_$S($D(VALMORE):"+",1:" ") ; -- prt rest of hdr
+ W:VALMCC IOUOFF I $E(IOST,1,2)="C-" D IOXY^VALM4(0,0) ; -- turn off undln
+ F I=1:1:VALM("TM")-3 W !,$S('$D(VALMHDR(I)):"",$L(VALMHDR(I))>(VALMWD-1):$$EXTRACT^VALM4($G(VALMHDR(I))),1:VALMHDR(I)) ; -- prt hdr
+ Q

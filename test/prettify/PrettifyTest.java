@@ -169,6 +169,7 @@ public class PrettifyTest {
     test("tcl", "tcl_lang", false);
     test("r", "r_lang", false);
     test("erlang", "erlang", false);
+    test("mumps", "mumps", false);
   }
 
   /**
