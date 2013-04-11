@@ -28,6 +28,9 @@ Module [module]
 
         ' This prints out: ".
         Console.WriteLine(""""c)
+
+        REM an old-style comment
+        REMOVE(not_a_comment)
     End Sub
 End Module
 
