@@ -70,7 +70,7 @@ public class LangErlang extends Lang {
         // TODO: catch @declarations inside comments
 
         // Comments in erlang are started with % and go till a newline
-        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_COMMENT, Pattern.compile("^%[^\\n]*"), null}));
+        _fallthroughStylePatterns.add(Arrays.asList(new Object[]{Prettify.PR_COMMENT, Pattern.compile("^%[^\\n\\r]*")}));
 
          // Catch macros
          //[PR['PR_TAG'], /?[^( \n)]+/],
