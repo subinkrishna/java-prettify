@@ -290,14 +290,14 @@ public class Prettify {
       decorateSourceMap.put("keywords", SH_KEYWORDS);
       decorateSourceMap.put("hashComments", true);
       decorateSourceMap.put("multiLineStrings", true);
-      registerLangHandler(sourceDecorator(decorateSourceMap), Arrays.asList(new String[]{"bsh", "csh", "sh"}));
+      registerLangHandler(sourceDecorator(decorateSourceMap), Arrays.asList(new String[]{"bash", "bsh", "csh", "sh"}));
 
       decorateSourceMap = new HashMap<String, Object>();
       decorateSourceMap.put("keywords", PYTHON_KEYWORDS);
       decorateSourceMap.put("hashComments", true);
       decorateSourceMap.put("multiLineStrings", true);
       decorateSourceMap.put("tripleQuotedStrings", true);
-      registerLangHandler(sourceDecorator(decorateSourceMap), Arrays.asList(new String[]{"cv", "py"}));
+      registerLangHandler(sourceDecorator(decorateSourceMap), Arrays.asList(new String[]{"cv", "py", "python"}));
 
       decorateSourceMap = new HashMap<String, Object>();
       decorateSourceMap.put("keywords", PERL_KEYWORDS);
@@ -311,13 +311,13 @@ public class Prettify {
       decorateSourceMap.put("hashComments", true);
       decorateSourceMap.put("multiLineStrings", true);
       decorateSourceMap.put("regexLiterals", true);
-      registerLangHandler(sourceDecorator(decorateSourceMap), Arrays.asList(new String[]{"rb"}));
+      registerLangHandler(sourceDecorator(decorateSourceMap), Arrays.asList(new String[]{"rb", "ruby"}));
 
       decorateSourceMap = new HashMap<String, Object>();
       decorateSourceMap.put("keywords", JSCRIPT_KEYWORDS);
       decorateSourceMap.put("cStyleComments", true);
       decorateSourceMap.put("regexLiterals", true);
-      registerLangHandler(sourceDecorator(decorateSourceMap), Arrays.asList(new String[]{"js"}));
+      registerLangHandler(sourceDecorator(decorateSourceMap), Arrays.asList(new String[]{"javascript", "js"}));
 
       decorateSourceMap = new HashMap<String, Object>();
       decorateSourceMap.put("keywords", COFFEE_KEYWORDS);
