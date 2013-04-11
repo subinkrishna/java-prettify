@@ -161,6 +161,7 @@ public class PrettifyTest {
     test(null, "xsl", false);
     test("yaml", "yaml1", false);
     test("yaml", "yaml2", false);
+    test("tcl", "tcl_lang", false);
   }
 
   /**

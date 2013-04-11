@@ -1,0 +1,12 @@
+#!/bin/tclsh
+proc fib {n} {
+    set a 0
+    set b 1
+    while {$n > 0} {
+        set tmp $a
+        set a [expr $a + $b]
+        set b $tmp
+        incr n -1
+    }
+    return $a
+}

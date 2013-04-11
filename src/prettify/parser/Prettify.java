@@ -35,6 +35,7 @@ import prettify.lang.LangMl;
 import prettify.lang.LangN;
 import prettify.lang.LangScala;
 import prettify.lang.LangSql;
+import prettify.lang.LangTcl;
 import prettify.lang.LangTex;
 import prettify.lang.LangVb;
 import prettify.lang.LangVhdl;
@@ -362,6 +363,7 @@ public class Prettify {
       register(LangTex.class);
       register(LangVb.class);
       register(LangVhdl.class);
+      register(LangTcl.class);
       register(LangWiki.class);
       register(LangXq.class);
       register(LangYaml.class);
