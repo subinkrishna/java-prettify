@@ -92,7 +92,12 @@ public class PrettifyTest {
     prettify.langHandlerForExtension(extension, source).decorate(job);
     List<Object> decorations = removeJSLineNumbering ? removeNewLines(job.getDecorations(), source) : job.getDecorations();
     final byte[] bytes = readFile(new File(packagePath + "result/" + code + ".txt"));
-    List<Object> compare = readResult(new String(bytes, "UTF-8").replace("&lt;", "<").replace("&gt;", ">").replace("&nbsp;", " ").replace("&amp;", "&"), removeJSLineNumbering);
+    final StringBuilder plainResult = new StringBuilder();
+    List<Object> compare = readResult(new String(bytes, "UTF-8").replace("&lt;", "<").replace("&gt;", ">").replace("&nbsp;", " ").replace("&amp;", "&"), removeJSLineNumbering, plainResult);
+
+    if (!removeJSLineNumbering) {
+      assertEquals(source, plainResult.toString());
+    }
 
     if (Arrays.equals(compare.toArray(), decorations.toArray())) {
       return;
@@ -262,7 +267,7 @@ public class PrettifyTest {
    * @return the parsed result with format similar to 
    * {@link prettify.Job#decorations}
    */
-  public static List<Object> readResult(String resultText, boolean removeJSLineNumbering) {
+  private static List<Object> readResult(String resultText, boolean removeJSLineNumbering, StringBuilder plainResult) {
     if (resultText == null) {
       throw new NullPointerException("argument 'resultText' cannot be null");
     }
@@ -292,6 +297,7 @@ public class PrettifyTest {
       returnList.add(count);
       returnList.add(matcher.group(1).toLowerCase());
       count += matcher.group(2).length();
+      plainResult.append(matcher.group(2));
     }
 
     returnList = Util.removeDuplicates(returnList, _resultText);
@@ -328,6 +334,11 @@ public class PrettifyTest {
 			final String type = (String)decorations.get(index + 1);
 			result.append("`");
 			result.append(type.toUpperCase());
+            if (end > source.length()) {
+                result.append("...");
+                break;
+            }
+
 			result.append(source.substring(start, end));
 			result.append("`");
 			result.append("END");
