@@ -33,6 +33,7 @@ import prettify.lang.LangHs;
 import prettify.lang.LangLisp;
 import prettify.lang.LangLua;
 import prettify.lang.LangMl;
+import prettify.lang.LangMumps;
 import prettify.lang.LangN;
 import prettify.lang.LangR;
 import prettify.lang.LangRd;
@@ -104,12 +105,12 @@ public class Prettify {
           + "mutable,namespace,nullptr,reinterpret_cast,static_assert,static_cast,"
           + "template,typeid,typename,using,virtual,where";
   public static final String JAVA_KEYWORDS = COMMON_KEYWORDS + ","
-          + "abstract,boolean,byte,extends,final,finally,implements,import,"
-          + "instanceof,null,native,package,strictfp,super,synchronized,throws,"
-          + "transient";
+          + "abstract,assert,boolean,byte,extends,final,finally,implements,import,"
+          + "instanceof,interface,null,native,package,strictfp,super,synchronized,"
+          + "throws,transient";
   public static final String CSHARP_KEYWORDS = JAVA_KEYWORDS + ","
           + "as,base,by,checked,decimal,delegate,descending,dynamic,event,"
-          + "fixed,foreach,from,group,implicit,in,interface,internal,into,is,let,"
+          + "fixed,foreach,from,group,implicit,in,internal,into,is,let,"
           + "lock,object,out,override,orderby,params,partial,readonly,ref,sbyte,"
           + "sealed,stackalloc,string,select,uint,ulong,unchecked,unsafe,ushort,"
           + "var,virtual,where";
@@ -361,6 +362,7 @@ public class Prettify {
       register(LangLisp.class);
       register(LangLua.class);
       register(LangMl.class);
+      register(LangMumps.class);
       register(LangN.class);
       register(LangR.class);
       register(LangRd.class);
