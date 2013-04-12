@@ -1,4 +1,3 @@
-<pre id="issue217" class="prettyprint lang-js">
-if(!/^https?:\/\//i.test(val) &amp;&amp; foo == 'bar') {
+if(!/^https?:\/\//i.test(val) && foo == 'bar') {
     val = 'http://' + val;
 }
