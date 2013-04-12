@@ -1,0 +1,19 @@
+`COM; Declare the string constant as a global constant.`END`PLN
+@.str `END`PUN=`END`PLN `END`KWDprivate`END`PLN `END`KWDunnamed_addr`END`PLN `END`KWDconstant`END`PLN `END`PUN[`END`LIT13`END`PLN `END`KWDx`END`PLN `END`KWDi8`END`PUN]`END`PLN `END`KWDc`END`STR"hello world\0A\00"`END`PLN
+
+`END`COM; External declaration of the puts function`END`PLN
+`END`KWDdeclare`END`PLN `END`KWDi32`END`PLN @puts`END`PUN(`END`KWDi8`END`PUN*`END`PLN `END`KWDnocapture`END`PUN)`END`PLN `END`KWDnounwind`END`PLN
+
+`END`COM; Definition of main function`END`PLN
+`END`KWDdefine`END`PLN `END`KWDi32`END`PLN @main`END`PUN()`END`PLN `END`PUN{`END`PLN   `END`COM; i32()*`END`PLN
+  `END`COM; Convert [13 x i8]* to i8  *...`END`PLN
+  %cast210 `END`PUN=`END`PLN `END`KWDgetelementptr`END`PLN `END`PUN[`END`LIT13`END`PLN `END`KWDx`END`PLN `END`KWDi8`END`PUN]*`END`PLN @.str`END`PUN,`END`PLN `END`KWDi64`END`PLN `END`LIT0`END`PUN,`END`PLN `END`KWDi64`END`PLN `END`LIT0`END`PLN
+
+  `END`COM; Call puts function to write out the string to stdout.`END`PLN
+  `END`KWDcall`END`PLN `END`KWDi32`END`PLN @puts`END`PUN(`END`KWDi8`END`PUN*`END`PLN %cast210`END`PUN)`END`PLN
+  `END`KWDret`END`PLN `END`KWDi32`END`PLN `END`LIT0`END`PLN
+`END`PUN}`END`PLN
+
+`END`COM; Named metadata`END`PLN
+!1 `END`PUN=`END`PLN `END`KWDmetadata`END`PLN !`END`PUN{`END`KWDi32`END`PLN `END`LIT42`END`PUN}`END`PLN
+!foo `END`PUN=`END`PLN !`END`PUN{`END`PLN!1`END`PUN,`END`PLN `END`KWDnull`END`PUN}`END

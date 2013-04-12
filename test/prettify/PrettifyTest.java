@@ -170,6 +170,7 @@ public class PrettifyTest {
     test("r", "r_lang", false);
     test("erlang", "erlang", false);
     test("mumps", "mumps", false);
+    test("llvm", "llvm", false);
     test("pascal", "pascal_lang", false);
     test("basic", "basic_lang", false);
   }

@@ -32,6 +32,7 @@ import prettify.lang.LangErlang;
 import prettify.lang.LangGo;
 import prettify.lang.LangHs;
 import prettify.lang.LangLisp;
+import prettify.lang.LangLlvm;
 import prettify.lang.LangLua;
 import prettify.lang.LangMl;
 import prettify.lang.LangMumps;
@@ -372,6 +373,7 @@ public class Prettify {
       register(LangGo.class);
       register(LangHs.class);
       register(LangLisp.class);
+      register(LangLlvm.class);
       register(LangLua.class);
       register(LangMl.class);
       register(LangMumps.class);
