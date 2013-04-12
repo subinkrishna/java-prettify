@@ -733,7 +733,8 @@ public class Prettify {
               + "[a-z]*", Pattern.CASE_INSENSITIVE),
               null,
               "0123456789"}));
-    // Don't treat escaped quotes in bash as starting strings.  See issue 144.
+    // Don't treat escaped quotes in bash as starting strings.
+    // See issue 144.
     fallthroughStylePatterns.add(Arrays.asList(new Object[]{PR_PLAIN,
               Pattern.compile("^\\\\[\\s\\S]?"),
               null}));
@@ -773,9 +774,12 @@ public class Prettify {
     // If that does turn out to be a problem, we should change the below
     // when hc is truthy to include # in the run of punctuation characters
     // only when not followint [|&;<>].
-    final String punctation = "^.[^\\s\\w\\.$@\\'\\\"\\`\\/\\\\]*";
+    String punctuation = "^.[^\\s\\w.$@'\"`/\\\\]*";
+    if (options.get("regexLiterals") != null) {
+        punctuation += "(?!\\s*/)";
+    }
     fallthroughStylePatterns.add(Arrays.asList(new Object[]{PR_PUNCTUATION,
-              Pattern.compile(punctation),
+              Pattern.compile(punctuation),
               null}));
 
     return new CreateSimpleLexer(shortcutStylePatterns, fallthroughStylePatterns);

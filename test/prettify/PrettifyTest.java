@@ -173,6 +173,7 @@ public class PrettifyTest {
     test("llvm", "llvm", false);
     test("pascal", "pascal_lang", false);
     test("basic", "basic_lang", false);
+    test("js", "issue217", false);
   }
 
   /**

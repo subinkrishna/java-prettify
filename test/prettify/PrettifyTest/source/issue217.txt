@@ -1,0 +1,4 @@
+<pre id="issue217" class="prettyprint lang-js">
+if(!/^https?:\/\//i.test(val) &amp;&amp; foo == 'bar') {
+    val = 'http://' + val;
+}
