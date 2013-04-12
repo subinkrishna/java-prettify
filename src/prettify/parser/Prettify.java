@@ -311,7 +311,7 @@ public class Prettify {
       decorateSourceMap.put("keywords", PERL_KEYWORDS);
       decorateSourceMap.put("hashComments", true);
       decorateSourceMap.put("multiLineStrings", true);
-      decorateSourceMap.put("regexLiterals", true);
+      decorateSourceMap.put("regexLiterals", 2);   // multiline regex literals
       registerLangHandler(sourceDecorator(decorateSourceMap), Arrays.asList(new String[]{"perl", "pl", "pm"}));
 
       decorateSourceMap = new HashMap<String, Object>();
@@ -671,7 +671,19 @@ public class Prettify {
                 Pattern.compile("^\\/\\*[\\s\\S]*?(?:\\*\\/|$)"),
                 null}));
     }
-    if (options.get("regexLiterals") != null) {
+    Object regexLiterals = options.get("regexLiterals");
+    if (regexLiterals != null) {
+      /**
+       * @const
+       */
+      // Javascript treat true as 1
+      String regexExcls = (regexLiterals instanceof Boolean ? 1 : (Integer) regexLiterals) > 1 
+              ? ""  // Multiline regex literals
+              : "\n\r";
+      /**
+       * @const
+       */
+      String regexAny = !regexExcls.isEmpty() ? "." : "[\\S\\s]";
       /**
        * @const
        */
@@ -679,13 +691,14 @@ public class Prettify {
               // A regular expression literal starts with a slash that is
               // not followed by * or / so that it is not confused with
               // comments.
-              "/(?=[^/*])"
+              "/(?=[^/*" + regexExcls + "])"
               // and then contains any number of raw characters,
-              + "(?:[^/\\x5B\\x5C]"
+              + "(?:[^/\\x5B\\x5C" + regexExcls + "]"
               // escape sequences (\x5C),
-              + "|\\x5C[\\s\\S]"
+              + "|\\x5C" + regexAny
               // or non-nesting character sets (\x5B\x5D);
-              + "|\\x5B(?:[^\\x5C\\x5D]|\\x5C[\\s\\S])*(?:\\x5D|$))+"
+              + "|\\x5B(?:[^\\x5C\\x5D" + regexExcls + "]"
+              + "|\\x5C" + regexAny + ")*(?:\\x5D|$))+"
               // finally closed by a /.
               + "/";
       fallthroughStylePatterns.add(Arrays.asList(new Object[]{"lang-regex",
