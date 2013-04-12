@@ -102,14 +102,17 @@ public class Prettify {
   public static final String COMMON_KEYWORDS = C_KEYWORDS + "," + "catch,class,delete,false,import,"
           + "new,operator,private,protected,public,this,throw,true,try,typeof";
   public static final String CPP_KEYWORDS = COMMON_KEYWORDS + "," + "alignof,align_union,asm,axiom,bool,"
-          + "concept,concept_map,const_cast,constexpr,decltype,"
+          + "concept,concept_map,const_cast,constexpr,decltype,delegate,"
           + "dynamic_cast,explicit,export,friend,generic,late_check,"
-          + "mutable,namespace,nullptr,reinterpret_cast,static_assert,static_cast,"
-          + "template,typeid,typename,using,virtual,where";
+          + "mutable,namespace,nullptr,property,reinterpret_cast,static_assert,"
+          + "static_cast,template,typeid,typename,using,virtual,where";
   public static final String JAVA_KEYWORDS = COMMON_KEYWORDS + ","
           + "abstract,assert,boolean,byte,extends,final,finally,implements,import,"
           + "instanceof,interface,null,native,package,strictfp,super,synchronized,"
           + "throws,transient";
+  public static final String RUST_KEYWORDS = FLOW_CONTROL_KEYWORDS + "as,assert,const,copy,drop,"
+          + "enum,extern,fail,false,fn,impl,let,log,loop,match,mod,move,mut,priv,"
+          + "pub,pure,ref,self,static,struct,true,trait,type,unsafe,use";
   public static final String CSHARP_KEYWORDS = JAVA_KEYWORDS + ","
           + "as,base,by,checked,decimal,delegate,descending,dynamic,event,"
           + "fixed,foreach,from,group,implicit,in,internal,into,is,let,"
@@ -330,6 +333,12 @@ public class Prettify {
       decorateSourceMap.put("tripleQuotedStrings", true);
       decorateSourceMap.put("regexLiterals", true);
       registerLangHandler(sourceDecorator(decorateSourceMap), Arrays.asList(new String[]{"coffee"}));
+
+      decorateSourceMap = new HashMap<String, Object>();
+      decorateSourceMap.put("keywords", RUST_KEYWORDS);
+      decorateSourceMap.put("cStyleComments", true);
+      decorateSourceMap.put("multilineStrings", true);
+      registerLangHandler(sourceDecorator(decorateSourceMap), Arrays.asList(new String[]{"rc", "rs", "rust"}));
 
       shortcutStylePatterns = new ArrayList<List<Object>>();
       fallthroughStylePatterns = new ArrayList<List<Object>>();
