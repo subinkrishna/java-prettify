@@ -1,0 +1,221 @@
+%%%%%%%%%%%%%%%%%% DATA TYPES %%%%%%%%%%%%%%%%%%
+
+v = [1,2,3;4,5,6];
+v(v&gt;4) = 0;
+
+s = struct('key',1, 'key2','string');
+s.key = 2;
+
+C = cell(1,2);
+C{1,1} = 0:9;
+
+double(1)
+single(1)
+uint8(1)
+int8(1)
+
+%%%%%%%%%%%%%%%%%% STRINGS &amp; TRANSPOSE %%%%%%%%%%%%%%%%%%
+
+plot(data');
+legend(labels)
+
+str = 'asdasd';     % this is a string
+str = 'asdas';
+str = 'sdasd''sdasd';
+
+str = ['one' 'two' 'three'];
+str = strcat('one', 'two', 'three');
+
+% matrix transpose
+M = rand(3,3)';
+x = M.';
+x = [10 20; 30, 40]';
+disp(x')
+fprintf('%d\n', x(:)')      % with comment
+{1,2}'                      % another comment
+
+%%%%%%%%%%%%%%%%%% LINE CONTINUATION %%%%%%%%%%%%%%%%%%
+
+[1 20; ...
+30 4]
+
+['gdgsd'...
+'sdfs']
+
+{...
+'sdasd' ;
+'asdsad'}
+
+%%%%%%%%%%%%%%%%%% SYSTEM COMMANDS %%%%%%%%%%%%%%%%%%
+
+!touch file.txt
+
+%%%%%%%%%%%%%%%%%% COMMAND OUTPUT %%%%%%%%%%%%%%%%%%
+
+&gt;&gt; 1+1
+ans =
+     2
+
+&gt;&gt; 1+1
+
+ans =
+
+     2
+
+%%%%%%%%%%%%%%%%%% KEYWORDS %%%%%%%%%%%%%%%%%%
+
+function ret = fcn(in)
+        ret = sum(in.^2);
+end
+
+classdef CC &lt; handle
+        properties (SetAccess = public)
+                x = 0;
+        end
+        methods
+                function this = CC(varargin)
+                        this.x = 9;
+                end
+        end
+end
+
+x = [];
+parfor i=1:10
+        x[i] = i;
+end
+
+true ~= false
+
+if x==1
+        true
+elseif
+        false
+else
+        return
+end
+
+while true
+        continue
+        break
+end
+
+try
+        error('aa:aa', 'asdasd')
+catch ME
+        warning(ME)
+end
+
+switch x
+        case 1
+                disp(1)
+        otherwise
+                0
+end
+
+%%%%%%%%%%%%%%%%%% NUM LITERALS %%%%%%%%%%%%%%%%%%
+
+1
+1.
+.1
+1.0
+-1
+-1.
+-.1
+-1.0
++10
++01.
++.1
++1.0
+1e1
+1e-1
+1.e1
+1.e-1
+1.0e1
+1.0e-1
+.1e1
+.1e-1
+-.1e+1
++1.e-1
+
+1i
+.10j
+-1.001i
++1e-100j
+-.10e-01i
+
+% unary vs binary operators
+1+1
+1+ 1
+1 +1
+1 + 1
++1+1
++1+ 1
++1 +1
++1 + 1
+
+%%%%%%%%%%%%%%%%%% COMMENTS %%%%%%%%%%%%%%%%%%
+
+% % comment % %
+   % comment
+% comment
+%# comment
+%% comment
+%#x = sum(x);
+
+%{
+block comment
+%}
+
+%{
+%}
+
+%{
+
+%}
+
+%{
+1
+2
+%}
+
+%{
+% sdf {}
+sdf
+%asda{}
+sfds
+%}
+
+    %{
+dsf
+        %}
+
+%{%}
+
+%{ zzz=10; %}
+
+%{%x=10;%}
+
+%{  x
+a=10;
+%}
+
+%{
+%a=10;
+%}   x
+
+% nested block comments fail
+%{
+dfsdf
+%{
+xxx
+%}
+dfsdf
+%}
+
+% fails here!
+%{
+x=10;
+%%{
+%%}
+y=20;
+%}

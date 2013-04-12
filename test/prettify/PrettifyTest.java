@@ -87,13 +87,13 @@ public class PrettifyTest {
    * @throws IOException error occurred when reading source or result file
    */
   public void test(String extension, String code, boolean removeJSLineNumbering) throws IOException {
-    String source = new String(readFile(new File(packagePath + "source/" + code + ".txt")), "UTF-8");
+    String source = unescapeHtmlSpecialChars(new String(readFile(new File(packagePath + "source/" + code + ".txt")), "UTF-8"));
     Job job = new Job(0, source);
     prettify.langHandlerForExtension(extension, source).decorate(job);
     List<Object> decorations = removeJSLineNumbering ? removeNewLines(job.getDecorations(), source) : job.getDecorations();
     final byte[] bytes = readFile(new File(packagePath + "result/" + code + ".txt"));
     final StringBuilder plainResult = new StringBuilder();
-    List<Object> compare = readResult(new String(bytes, "UTF-8").replace("&lt;", "<").replace("&gt;", ">").replace("&nbsp;", " ").replace("&amp;", "&"), removeJSLineNumbering, plainResult);
+    List<Object> compare = readResult(unescapeHtmlSpecialChars(new String(bytes, "UTF-8")), removeJSLineNumbering, plainResult);
 
     if (!removeJSLineNumbering) {
       assertEquals(source, plainResult.toString());
@@ -174,6 +174,7 @@ public class PrettifyTest {
     test("pascal", "pascal_lang", false);
     test("basic", "basic_lang", false);
     test("js", "issue217", false);
+    test("matlab", "matlab", false);
   }
 
   /**
@@ -284,6 +285,7 @@ public class PrettifyTest {
     if (removeJSLineNumbering) {
       _resultText = _resultText.replaceAll("[\r\n]", "");
 
+      // combine 'adjacent with identical decoration keyword' segments
       StringBuffer sb = new StringBuffer();
       Pattern pattern = Pattern.compile("(`[A-Z]{3})([^`]+?)`END\\1([^`]+?)`END", Pattern.MULTILINE | Pattern.DOTALL);
       Matcher matcher = pattern.matcher(_resultText);
@@ -296,24 +298,42 @@ public class PrettifyTest {
       _resultText = sb.toString();
     }
 
+    // digest result(string) into segments by identifing standard 'decoration keyword' start & end
     int count = 0;
-    Pattern pattern = Pattern.compile("`([A-Z]{3})(.+?)`END", Pattern.MULTILINE | Pattern.DOTALL);
-    Matcher matcher = pattern.matcher(_resultText);
+    Pattern decorationPattern = Pattern.compile("`([A-Z]{3})(.+?)`END|<span class=\"([a-z]+)\">(.+?)`END", Pattern.MULTILINE | Pattern.DOTALL);
+    Matcher matcher = decorationPattern.matcher(_resultText);
     while (matcher.find()) {
       returnList.add(count);
-      returnList.add(matcher.group(1).toLowerCase());
-      count += matcher.group(2).length();
-      plainResult.append(matcher.group(2));
+
+      String decorationKeyword = null;
+      String decoratedContent = null;
+
+      if (matcher.group(1) != null) {
+        decorationKeyword = matcher.group(1);
+        decoratedContent = matcher.group(2);
+      } else {
+        decorationKeyword = matcher.group(3);
+        decoratedContent = matcher.group(4);
+      }
+
+      returnList.add(decorationKeyword.toLowerCase());
+      count += decoratedContent.length();
+      plainResult.append(decoratedContent);
     }
 
     returnList = Util.removeDuplicates(returnList, _resultText);
 
     // for debug
 //        StringBuffer sb = new StringBuffer();
-//        matcher = pattern.matcher(resultText);
+//        matcher = decorationPattern.matcher(resultText);
 //        while (matcher.find()) {
-//            matcher.appendReplacement(sb, "");
-//            sb.append(matcher.group(2));
+//            if (matcher.group(1) != null) {
+//                matcher.appendReplacement(sb, "");
+//                sb.append(matcher.group(2));
+//            } else {
+//                matcher.appendReplacement(sb, "");
+//                sb.append(matcher.group(4));
+//            }
 //        }
 //        matcher.appendTail(sb);
 //        String plainCode = sb.toString();
@@ -326,6 +346,10 @@ public class PrettifyTest {
 //        }
 
     return returnList;
+  }
+
+  protected static String unescapeHtmlSpecialChars(String inputString) {
+      return inputString.replace("&lt;", "<").replace("&gt;", ">").replace("&nbsp;", " ").replace("&amp;", "&");
   }
 
 	private static String prettify(String source, List<Object> decorations) {

@@ -1,1 +1,1 @@
-super("&nbsp;");
+super("&amp;nbsp;");

@@ -1,0 +1,221 @@
+`COM%%%%%%%%%%%%%%%%%% DATA TYPES %%%%%%%%%%%%%%%%%%`END`PLN
+
+`END<span class="ident">v`END`PLN `END`PUN=`END`PLN `END`TAG[`END`LIT1`END`PUN,`END`LIT2`END`PUN,`END`LIT3`END`PUN;`END`LIT4`END`PUN,`END`LIT5`END`PUN,`END`LIT6`END`TAG]`END`PUN;`END`PLN
+`END<span class="ident">v`END`TAG(`END<span class="ident">v`END`PUN&gt;`END`LIT4`END`TAG)`END`PLN `END`PUN=`END`PLN `END`LIT0`END`PUN;`END`PLN
+
+`END<span class="ident">s`END`PLN `END`PUN=`END`PLN `END`TYPstruct`END`TAG(`END`STR'key'`END`PUN,`END`LIT1`END`PUN,`END`PLN `END`STR'key2'`END`PUN,`END`STR'string'`END`TAG)`END`PUN;`END`PLN
+`END<span class="ident">s.key`END`PLN `END`PUN=`END`PLN `END`LIT2`END`PUN;`END`PLN
+
+`END<span class="ident">C`END`PLN `END`PUN=`END`PLN `END`TYPcell`END`TAG(`END`LIT1`END`PUN,`END`LIT2`END`TAG)`END`PUN;`END`PLN
+`END<span class="ident">C`END`TAG{`END`LIT1`END`PUN,`END`LIT1`END`TAG}`END`PLN `END`PUN=`END`PLN `END`LIT0`END`PUN:`END`LIT9`END`PUN;`END`PLN
+
+`END`TYPdouble`END`TAG(`END`LIT1`END`TAG)`END`PLN
+`END`TYPsingle`END`TAG(`END`LIT1`END`TAG)`END`PLN
+`END`TYPuint8`END`TAG(`END`LIT1`END`TAG)`END`PLN
+`END`TYPint8`END`TAG(`END`LIT1`END`TAG)`END`PLN
+
+`END`COM%%%%%%%%%%%%%%%%%% STRINGS &amp; TRANSPOSE %%%%%%%%%%%%%%%%%%`END`PLN
+
+`END`FUNplot`END`TAG(`END<span class="ident">data`END<span class="transpose">'`END`TAG)`END`PUN;`END`PLN
+`END`FUNlegend`END`TAG(`END<span class="ident">labels`END`TAG)`END`PLN
+
+`END<span class="ident">str`END`PLN `END`PUN=`END`PLN `END`STR'asdasd'`END`PUN;`END`PLN     `END`COM% this is a string`END`PLN
+`END<span class="ident">str`END`PLN `END`PUN=`END`PLN `END`STR'asdas'`END`PUN;`END`PLN
+`END<span class="ident">str`END`PLN `END`PUN=`END`PLN `END`STR'sdasd''sdasd'`END`PUN;`END`PLN
+
+`END<span class="ident">str`END`PLN `END`PUN=`END`PLN `END`TAG[`END`STR'one'`END`PLN `END`STR'two'`END`PLN `END`STR'three'`END`TAG]`END`PUN;`END`PLN
+`END<span class="ident">str`END`PLN `END`PUN=`END`PLN `END`FUNstrcat`END`TAG(`END`STR'one'`END`PUN,`END`PLN `END`STR'two'`END`PUN,`END`PLN `END`STR'three'`END`TAG)`END`PUN;`END`PLN
+
+`END`COM% matrix transpose`END`PLN
+`END<span class="ident">M`END`PLN `END`PUN=`END`PLN `END`FUNrand`END`TAG(`END`LIT3`END`PUN,`END`LIT3`END`TAG)`END<span class="transpose">'`END`PUN;`END`PLN
+`END<span class="ident">x`END`PLN `END`PUN=`END`PLN `END<span class="ident">M`END`PUN.`END<span class="transpose">'`END`PUN;`END`PLN
+`END<span class="ident">x`END`PLN `END`PUN=`END`PLN `END`TAG[`END`LIT10`END`PLN `END`LIT20`END`PUN;`END`PLN `END`LIT30`END`PUN,`END`PLN `END`LIT40`END`TAG]`END<span class="transpose">'`END`PUN;`END`PLN
+`END`FUNdisp`END`TAG(`END<span class="ident">x`END<span class="transpose">'`END`TAG)`END`PLN
+`END`FUNfprintf`END`TAG(`END`STR'%d\n'`END`PUN,`END`PLN `END<span class="ident">x`END`TAG(`END`PUN:`END`TAG)`END<span class="transpose">'`END`TAG)`END`PLN      `END`COM% with comment`END`PLN
+`END`TAG{`END`LIT1`END`PUN,`END`LIT2`END`TAG}`END<span class="transpose">'`END`PLN                      `END`COM% another comment`END`PLN
+
+`END`COM%%%%%%%%%%%%%%%%%% LINE CONTINUATION %%%%%%%%%%%%%%%%%%`END`PLN
+
+`END`TAG[`END`LIT1`END`PLN `END`LIT20`END`PUN;`END`PLN `END<span class="linecont">...
+`END`LIT30`END`PLN `END`LIT4`END`TAG]`END`PLN
+
+`END`TAG[`END`STR'gdgsd'`END<span class="linecont">...
+`END`STR'sdfs'`END`TAG]`END`PLN
+
+`END`TAG{`END<span class="linecont">...
+`END`STR'sdasd'`END`PLN `END`PUN;`END`PLN
+`END`STR'asdsad'`END`TAG}`END`PLN
+
+`END`COM%%%%%%%%%%%%%%%%%% SYSTEM COMMANDS %%%%%%%%%%%%%%%%%%`END`PLN
+
+`END<span class="syscmd">!touch file.txt`END`PLN
+
+`END`COM%%%%%%%%%%%%%%%%%% COMMAND OUTPUT %%%%%%%%%%%%%%%%%%`END`PLN
+
+`END<span class="codeoutput">&gt;&gt; `END`LIT1+1`END`PLN
+`END<span class="const">ans`END`PLN `END`PUN=`END`PLN
+     `END`LIT2`END`PLN
+
+`END<span class="codeoutput">&gt;&gt; `END`LIT1+1`END`PLN
+
+`END<span class="const">ans`END`PLN `END`PUN=`END`PLN
+
+     `END`LIT2`END`PLN
+
+`END`COM%%%%%%%%%%%%%%%%%% KEYWORDS %%%%%%%%%%%%%%%%%%`END`PLN
+
+`END`KWDfunction`END`PLN `END<span class="ident">ret`END`PLN `END`PUN=`END`PLN `END<span class="ident">fcn`END`TAG(`END<span class="ident">in`END`TAG)`END`PLN
+        `END<span class="ident">ret`END`PLN `END`PUN=`END`PLN `END`FUNsum`END`TAG(`END<span class="ident">in`END`PUN.^`END`LIT2`END`TAG)`END`PUN;`END`PLN
+`END`KWDend`END`PLN
+
+`END`KWDclassdef`END`PLN `END<span class="ident">CC`END`PLN `END`PUN&lt;`END`PLN `END`FUNhandle`END`PLN
+        `END<span class="ident">properties`END`PLN `END`TAG(`END<span class="ident">SetAccess`END`PLN `END`PUN=`END`PLN `END<span class="ident">public`END`TAG)`END`PLN
+                `END<span class="ident">x`END`PLN `END`PUN=`END`PLN `END`LIT0`END`PUN;`END`PLN
+        `END`KWDend`END`PLN
+        `END`FUNmethods`END`PLN
+                `END`KWDfunction`END`PLN `END<span class="ident">this`END`PLN `END`PUN=`END`PLN `END<span class="ident">CC`END`TAG(`END<span class="const">varargin`END`TAG)`END`PLN
+                        `END<span class="ident">this.x`END`PLN `END`PUN=`END`PLN `END`LIT9`END`PUN;`END`PLN
+                `END`KWDend`END`PLN
+        `END`KWDend`END`PLN
+`END`KWDend`END`PLN
+
+`END<span class="ident">x`END`PLN `END`PUN=`END`PLN `END`TAG[]`END`PUN;`END`PLN
+`END`KWDparfor`END`PLN `END<span class="ident">i`END`PUN=`END`LIT1`END`PUN:`END`LIT10`END`PLN
+        `END<span class="ident">x`END`TAG[`END<span class="ident">i`END`TAG]`END`PLN `END`PUN=`END`PLN `END<span class="ident">i`END`PUN;`END`PLN
+`END`KWDend`END`PLN
+
+`END<span class="const">true`END`PLN `END`PUN~=`END`PLN `END<span class="const">false`END`PLN
+
+`END`KWDif`END`PLN `END<span class="ident">x`END`PUN==`END`LIT1`END`PLN
+        `END<span class="const">true`END`PLN
+`END`KWDelseif`END`PLN
+        `END<span class="const">false`END`PLN
+`END`KWDelse`END`PLN
+        `END`KWDreturn`END`PLN
+`END`KWDend`END`PLN
+
+`END`KWDwhile`END`PLN `END<span class="const">true`END`PLN
+        `END`KWDcontinue`END`PLN
+        `END`KWDbreak`END`PLN
+`END`KWDend`END`PLN
+
+`END`KWDtry`END`PLN
+        `END`FUNerror`END`TAG(`END`STR'aa:aa'`END`PUN,`END`PLN `END`STR'asdasd'`END`TAG)`END`PLN
+`END`KWDcatch`END`PLN `END<span class="ident">ME`END`PLN
+        `END`FUNwarning`END`TAG(`END<span class="ident">ME`END`TAG)`END`PLN
+`END`KWDend`END`PLN
+
+`END`KWDswitch`END`PLN `END<span class="ident">x`END`PLN
+        `END`KWDcase`END`PLN `END`LIT1`END`PLN
+                `END`FUNdisp`END`TAG(`END`LIT1`END`TAG)`END`PLN
+        `END`KWDotherwise`END`PLN
+                `END`LIT0`END`PLN
+`END`KWDend`END`PLN
+
+`END`COM%%%%%%%%%%%%%%%%%% NUM LITERALS %%%%%%%%%%%%%%%%%%`END`PLN
+
+`END`LIT1`END`PLN
+`END`LIT1.`END`PLN
+`END`LIT.1`END`PLN
+`END`LIT1.0`END`PLN
+`END`LIT-1`END`PLN
+`END`LIT-1.`END`PLN
+`END`LIT-.1`END`PLN
+`END`LIT-1.0`END`PLN
+`END`LIT+10`END`PLN
+`END`LIT+01.`END`PLN
+`END`LIT+.1`END`PLN
+`END`LIT+1.0`END`PLN
+`END`LIT1e1`END`PLN
+`END`LIT1e-1`END`PLN
+`END`LIT1.e1`END`PLN
+`END`LIT1.e-1`END`PLN
+`END`LIT1.0e1`END`PLN
+`END`LIT1.0e-1`END`PLN
+`END`LIT.1e1`END`PLN
+`END`LIT.1e-1`END`PLN
+`END`LIT-.1e+1`END`PLN
+`END`LIT+1.e-1`END`PLN
+
+`END`LIT1i`END`PLN
+`END`LIT.10j`END`PLN
+`END`LIT-1.001i`END`PLN
+`END`LIT+1e-100j`END`PLN
+`END`LIT-.10e-01i`END`PLN
+
+`END`COM% unary vs binary operators`END`PLN
+`END`LIT1+1`END`PLN
+`END`LIT1`END`PUN+`END`PLN `END`LIT1`END`PLN
+`END`LIT1`END`PLN `END`LIT+1`END`PLN
+`END`LIT1`END`PLN `END`PUN+`END`PLN `END`LIT1`END`PLN
+`END`LIT+1+1`END`PLN
+`END`LIT+1`END`PUN+`END`PLN `END`LIT1`END`PLN
+`END`LIT+1`END`PLN `END`LIT+1`END`PLN
+`END`LIT+1`END`PLN `END`PUN+`END`PLN `END`LIT1`END`PLN
+
+`END`COM%%%%%%%%%%%%%%%%%% COMMENTS %%%%%%%%%%%%%%%%%%`END`PLN
+
+`END`COM% % comment % %`END`PLN
+   `END`COM% comment`END`PLN
+`END`COM% comment`END`PLN
+`END`COM%# comment`END`PLN
+`END`COM%% comment`END`PLN
+`END`COM%#x = sum(x);`END`PLN
+
+`END`COM%{
+block comment
+%}`END`PLN
+
+`END`COM%{
+%}`END`PLN
+
+`END`COM%{
+
+%}`END`PLN
+
+`END`COM%{
+1
+2
+%}`END`PLN
+
+`END`COM%{
+% sdf {}
+sdf
+%asda{}
+sfds
+%}`END`PLN
+
+    `END`COM%{
+dsf
+        %}`END`PLN
+
+`END`COM%{%}`END`PLN
+
+`END`COM%{ zzz=10; %}`END`PLN
+
+`END`COM%{%x=10;%}`END`PLN
+
+`END`COM%{  x
+a=10;
+%}`END`PLN
+
+`END`COM%{
+%a=10;
+%}`END`PLN   `END<span class="ident">x`END`PLN
+
+`END`COM% nested block comments fail`END`PLN
+`END`COM%{
+dfsdf
+%{
+xxx
+%}`END`PLN
+`END<span class="ident">dfsdf`END`PLN
+`END`COM%}`END`PLN
+
+`END`COM% fails here!`END`PLN
+`END`COM%{
+x=10;
+%%{
+%%}`END`PLN
+`END<span class="ident">y`END`PUN=`END`LIT20`END`PUN;`END`PLN
+`END`COM%}`END

@@ -34,6 +34,7 @@ import prettify.lang.LangHs;
 import prettify.lang.LangLisp;
 import prettify.lang.LangLlvm;
 import prettify.lang.LangLua;
+import prettify.lang.LangMatlab;
 import prettify.lang.LangMl;
 import prettify.lang.LangMumps;
 import prettify.lang.LangN;
@@ -375,6 +376,7 @@ public class Prettify {
       register(LangLisp.class);
       register(LangLlvm.class);
       register(LangLua.class);
+      register(LangMatlab.class);
       register(LangMl.class);
       register(LangMumps.class);
       register(LangN.class);
