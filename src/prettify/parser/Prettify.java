@@ -677,8 +677,8 @@ public class Prettify {
        * @const
        */
       // Javascript treat true as 1
-      String regexExcls = (regexLiterals instanceof Boolean ? 1 : (Integer) regexLiterals) > 1 
-              ? ""  // Multiline regex literals
+      String regexExcls = Util.getVariableValueAsInteger(regexLiterals) > 1
+              ? "" // Multiline regex literals
               : "\n\r";
       /**
        * @const

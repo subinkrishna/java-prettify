@@ -30,6 +30,34 @@ public class Util {
 
   protected Util() {
   }
+  
+  /**
+   * Treat a variable as an integer in JavaScript style. Note this function can
+   * only handle integer and boolean currently.
+   *
+   * @param var the variable to get value from
+   * @return the integer value
+   * @throws IllegalArgumentException the data type of {@code var} is neither
+   * integer nor boolean.
+   */
+  public static Integer getVariableValueAsInteger(Object var) {
+    if (var == null) {
+      throw new NullPointerException("argument 'var' cannot be null");
+    }
+
+    Integer returnResult = -1;
+
+    if (var instanceof Integer) {
+      returnResult = (Integer) var;
+    } else if (var instanceof Boolean) {
+      // Javascript treat true as 1
+      returnResult = (Boolean) var ? 1 : 0;
+    } else {
+      throw new IllegalArgumentException("'var' is neither integer nor boolean");
+    }
+
+    return returnResult;
+  }
 
   /**
    * Get all the matches for {@code string} compiled by {@code pattern}. If 
