@@ -32,6 +32,32 @@ public class Util {
   }
   
   /**
+   * Treat a variable as an boolean in JavaScript style. Note this function can
+   * only handle string, integer and boolean currently. All other data type, if
+   * null, return false, not null return true.
+   *
+   * @param var the variable to get value from
+   * @return the boolean value
+   */
+  public static Boolean getVariableValueAsBoolean(Object var) {
+    Boolean returnResult = null;
+
+    if (var == null) {
+      returnResult = false;
+    } else if (var instanceof String) {
+      returnResult = !((String) var).isEmpty();
+    } else if (var instanceof Integer) {
+      returnResult = ((Integer) var) != 0;
+    } else if (var instanceof Boolean) {
+      returnResult = (Boolean) var;
+    } else {
+      returnResult = true;
+    }
+
+    return returnResult;
+  }
+
+  /**
    * Treat a variable as an integer in JavaScript style. Note this function can
    * only handle integer and boolean currently.
    *

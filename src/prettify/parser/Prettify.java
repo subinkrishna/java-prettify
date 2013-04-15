@@ -611,13 +611,13 @@ public class Prettify {
   protected CreateSimpleLexer sourceDecorator(Map<String, Object> options) throws Exception {
     List<List<Object>> shortcutStylePatterns = new ArrayList<List<Object>>();
     List<List<Object>> fallthroughStylePatterns = new ArrayList<List<Object>>();
-    if (options.get("tripleQuotedStrings") != null) {
+    if (Util.getVariableValueAsBoolean(options.get("tripleQuotedStrings"))) {
       // '''multi-line-string''', 'single-line-string', and double-quoted
       shortcutStylePatterns.add(Arrays.asList(new Object[]{PR_STRING,
                 Pattern.compile("^(?:\\'\\'\\'(?:[^\\'\\\\]|\\\\[\\s\\S]|\\'{1,2}(?=[^\\']))*(?:\\'\\'\\'|$)|\\\"\\\"\\\"(?:[^\\\"\\\\]|\\\\[\\s\\S]|\\\"{1,2}(?=[^\\\"]))*(?:\\\"\\\"\\\"|$)|\\'(?:[^\\\\\\']|\\\\[\\s\\S])*(?:\\'|$)|\\\"(?:[^\\\\\\\"]|\\\\[\\s\\S])*(?:\\\"|$))"),
                 null,
                 "'\""}));
-    } else if (options.get("multiLineStrings") != null) {
+    } else if (Util.getVariableValueAsBoolean(options.get("multiLineStrings"))) {
       // 'multi-line-string', "multi-line-string"
       shortcutStylePatterns.add(Arrays.asList(new Object[]{PR_STRING,
                 Pattern.compile("^(?:\\'(?:[^\\\\\\']|\\\\[\\s\\S])*(?:\\'|$)|\\\"(?:[^\\\\\\\"]|\\\\[\\s\\S])*(?:\\\"|$)|\\`(?:[^\\\\\\`]|\\\\[\\s\\S])*(?:\\`|$))"),
@@ -630,15 +630,15 @@ public class Prettify {
                 null,
                 "\"'"}));
     }
-    if (options.get("verbatimStrings") != null) {
+    if (Util.getVariableValueAsBoolean(options.get("verbatimStrings"))) {
       // verbatim-string-literal production from the C# grammar.  See issue 93.
       fallthroughStylePatterns.add(Arrays.asList(new Object[]{PR_STRING,
                 Pattern.compile("^@\\\"(?:[^\\\"]|\\\"\\\")*(?:\\\"|$)"),
                 null}));
     }
     Object hc = options.get("hashComments");
-    if (hc != null) {
-      if (options.get("cStyleComments") != null) {
+    if (Util.getVariableValueAsBoolean(hc)) {
+      if (Util.getVariableValueAsBoolean(options.get("cStyleComments"))) {
         if ((hc instanceof Integer) && (Integer) hc > 1) {  // multiline hash comments
           shortcutStylePatterns.add(Arrays.asList(new Object[]{PR_COMMENT,
                     Pattern.compile("^#(?:##(?:[^#]|#(?!##))*(?:###|$)|.*)"),
@@ -662,7 +662,7 @@ public class Prettify {
                   "#"}));
       }
     }
-    if (options.get("cStyleComments") != null) {
+    if (Util.getVariableValueAsBoolean(options.get("cStyleComments"))) {
       fallthroughStylePatterns.add(Arrays.asList(new Object[]{PR_COMMENT,
                 Pattern.compile("^\\/\\/[^\r\n]*"),
                 null}));
@@ -672,7 +672,7 @@ public class Prettify {
                 null}));
     }
     Object regexLiterals = options.get("regexLiterals");
-    if (regexLiterals != null) {
+    if (Util.getVariableValueAsBoolean(regexLiterals)) {
       /**
        * @const
        */
@@ -706,12 +706,13 @@ public class Prettify {
     }
 
     Pattern types = (Pattern) options.get("types");
-    if (types != null) {
+    if (Util.getVariableValueAsBoolean(types)) {
       fallthroughStylePatterns.add(Arrays.asList(new Object[]{PR_TYPE, types}));
     }
 
-    if (options.get("keywords") != null) {
-      String keywords = ((String) options.get("keywords")).replaceAll("^ | $", "");
+    String keywords = (String) options.get("keywords");
+    if (keywords != null) {
+      keywords = keywords.replaceAll("^ | $", "");
       if (keywords.length() != 0) {
         fallthroughStylePatterns.add(Arrays.asList(new Object[]{PR_KEYWORD,
                   Pattern.compile("^(?:" + keywords.replaceAll("[\\s,]+", "|") + ")\\b"),
@@ -790,7 +791,7 @@ public class Prettify {
     // when hc is truthy to include # in the run of punctuation characters
     // only when not followint [|&;<>].
     String punctuation = "^.[^\\s\\w.$@'\"`/\\\\]*";
-    if (options.get("regexLiterals") != null) {
+    if (Util.getVariableValueAsBoolean(options.get("regexLiterals"))) {
         punctuation += "(?!\\s*/)";
     }
     fallthroughStylePatterns.add(Arrays.asList(new Object[]{PR_PUNCTUATION,
