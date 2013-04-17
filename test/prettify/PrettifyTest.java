@@ -13,6 +13,7 @@
 // limitations under the License.
 package prettify;
 
+import java.io.Closeable;
 import prettify.parser.Util;
 import prettify.parser.Job;
 import prettify.parser.Prettify;
@@ -24,8 +25,12 @@ import java.util.regex.Pattern;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -39,6 +44,7 @@ import static org.junit.Assert.*;
  */
 public class PrettifyTest {
 
+  private static final Logger LOG = Logger.getLogger(PrettifyTest.class.getName());
   static {
     // set debug mode
     System.setProperty("PrettifyDebugMode", "true");
@@ -87,28 +93,57 @@ public class PrettifyTest {
    * @throws IOException error occurred when reading source or result file
    */
   public void test(String extension, String code, boolean removeJSLineNumbering) throws IOException {
-    String source = unescapeHtmlSpecialChars(new String(readFile(new File(packagePath + "source/" + code + ".txt")), "UTF-8"));
-    Job job = new Job(0, source);
-    prettify.langHandlerForExtension(extension, source).decorate(job);
-    List<Object> decorations = removeJSLineNumbering ? removeNewLines(job.getDecorations(), source) : job.getDecorations();
-    final byte[] bytes = readFile(new File(packagePath + "result/" + code + ".txt"));
-    final StringBuilder plainResult = new StringBuilder();
-    List<Object> compare = readResult(unescapeHtmlSpecialChars(new String(bytes, "UTF-8")), removeJSLineNumbering, plainResult);
+    System.out.println("+ performing '" + code + "' test...");
+    String sourceString = unescapeHtmlSpecialChars(new String(readFile(new File(packagePath + "source/" + code + ".txt")), "UTF-8"));
 
-    if (!removeJSLineNumbering) {
-      assertEquals(source, plainResult.toString());
+    List<Object> decorations = null;
+    // parse/decorate the sourceString
+    Job prettifyJob = new Job(0, sourceString);
+    prettify.langHandlerForExtension(extension, sourceString).decorate(prettifyJob);
+    decorations = removeJSLineNumbering ? removeNewLines(prettifyJob.getDecorations(), sourceString) : prettifyJob.getDecorations();
+
+    String plainResult = null;
+    String resultString = null;
+    // read expected result
+    final StringBuilder plainResultSb = new StringBuilder();
+    resultString = new String(readFile(new File(packagePath + "result/" + code + ".txt")), "UTF-8");
+    List<Object> compare = readResult(unescapeHtmlSpecialChars(resultString), removeJSLineNumbering, plainResultSb);
+    plainResult = plainResultSb.toString();
+
+
+    boolean testPassed = true;
+
+    if (!removeJSLineNumbering && !sourceString.equals(plainResult)) {
+      // check to ensure source and result, without decorations, are the same
+      testPassed = false;
+    }
+    if (!Arrays.equals(compare.toArray(), decorations.toArray())) {
+      testPassed = false;
     }
 
-    if (Arrays.equals(compare.toArray(), decorations.toArray())) {
-      return;
-    }
+    if (!testPassed) {
+      String parsedSourceString = prettify(sourceString, compare);
+      String parsedResultString = prettify(sourceString, decorations);
 
-    final StringBuilder errorMessage = new StringBuilder();
-    errorMessage.append("Prettify failed. Expected:\n");
-    errorMessage.append(prettify(source, compare));
-    errorMessage.append("\n\nBut was:\n");
-    errorMessage.append(prettify(source, decorations));
-    fail(errorMessage.toString());
+      // generate files for WinMerge
+      File originalResultFile = new File(code + "_original.txt");
+      File revisedResultFile = new File(code + "_revised.txt");
+      writeFile(originalResultFile, resultString);
+      writeFile(revisedResultFile, parsedResultString);
+
+      // generate diff file
+      diff(originalResultFile, revisedResultFile, new File(code + ".diff"));
+
+      final StringBuilder errorMessage = new StringBuilder();
+      errorMessage.append("++++++++++++++++++++++++++++++ Expected Result ++++++++++++++++++++++++++++++");
+      errorMessage.append("\n");
+      errorMessage.append(parsedSourceString);
+      errorMessage.append("\n\n");
+      errorMessage.append("++++++++++++++++++++++++++++++ Actual Result ++++++++++++++++++++++++++++++");
+      errorMessage.append("\n");
+      errorMessage.append(parsedResultString);
+      fail(errorMessage.toString());
+    }
   }
 
   @Test
@@ -352,28 +387,110 @@ public class PrettifyTest {
       return inputString.replace("&lt;", "<").replace("&gt;", ">").replace("&nbsp;", " ").replace("&amp;", "&");
   }
 
-	private static String prettify(String source, List<Object> decorations) {
-		if (decorations.size() % 2 != 0) {
-			throw new IllegalArgumentException();
-		}
+  private static String prettify(String source, List<Object> decorations) {
+    if (decorations.size() % 2 != 0) {
+      throw new IllegalArgumentException();
+    }
 
-		final StringBuilder result = new StringBuilder();
-		for (int index = 0; index < decorations.size(); index+=2) {
-			final int start = ((Integer)decorations.get(index)).intValue();
-			final int end = index < decorations.size() - 2 ? ((Integer)decorations.get(index + 2)).intValue() : source.length();
-			final String type = (String)decorations.get(index + 1);
-			result.append("`");
-			result.append(type.toUpperCase());
-            if (end > source.length()) {
-                result.append("...");
-                break;
-            }
+    final StringBuilder result = new StringBuilder();
+    for (int index = 0; index < decorations.size(); index += 2) {
+      final int start = ((Integer) decorations.get(index)).intValue();
+      final int end = index < decorations.size() - 2 ? ((Integer) decorations.get(index + 2)).intValue() : source.length();
+      final String type = (String) decorations.get(index + 1);
+      result.append("`");
+      result.append(type.toUpperCase());
+      if (end > source.length()) {
+        result.append("...");
+        break;
+      }
 
-			result.append(source.substring(start, end));
-			result.append("`");
-			result.append("END");
-		}
+      result.append(source.substring(start, end));
+      result.append("`");
+      result.append("END");
+    }
 
-		return result.toString();
-	}
+    return result.toString();
+  }
+  
+  protected static void diff(File originalFile, File revisedFile, File diffFileSaveTo) {
+    ProcessBuilder builder = new ProcessBuilder(new String[]{"test/bin/diffutils/diff.exe", originalFile.getAbsolutePath(), revisedFile.getAbsolutePath()});
+    Process process = null;
+    FileOutputStream fout = null;
+    try {
+      process = builder.start();
+      fout = new FileOutputStream(diffFileSaveTo);
+
+      // not good code of course
+      // need to read all error output stream in order to finish
+      InputStream stream = process.getInputStream();
+      int byteRead = -1;
+      while ((byteRead = stream.read()) != -1) {
+        fout.write(byteRead);
+      }
+    } catch (Exception ex) {
+      LOG.log(Level.SEVERE, "Failed to generate diff file, saveTo: " + diffFileSaveTo.getAbsolutePath(), ex);
+    } finally {
+      closeQuietly(fout);
+    }
+    try {
+      process.waitFor();
+    } catch (InterruptedException ex) {
+      Thread.currentThread().interrupt();
+    }
+  }
+
+  /**
+   * Write the string into the file.
+   *
+   * @param file the file to write to
+   * @param content the content to write into the file
+   * @throws IOException error occurred when writing the content into the file
+   */
+  public static void writeFile(File file, String content) throws IOException {
+    if (file == null) {
+      throw new NullPointerException("argument 'file' cannot be null");
+    }
+    if (content == null) {
+      throw new NullPointerException("argument 'content' cannot be null");
+    }
+    writeFile(file, content.getBytes("UTF-8"));
+  }
+
+  /**
+   * Write the byte array into the file.
+   *
+   * @param file the file to write to
+   * @param content the content to write into the file
+   * @throws IOException error occurred when writing the content into the file
+   */
+  public static void writeFile(File file, byte[] content) throws IOException {
+    if (file == null) {
+      throw new NullPointerException("argument 'file' cannot be null");
+    }
+    if (content == null) {
+      throw new NullPointerException("argument 'content' cannot be null");
+    }
+    FileOutputStream fout = null;
+    try {
+      fout = new FileOutputStream(file);
+      fout.write(content);
+    } finally {
+      closeQuietly(fout);
+    }
+  }
+
+  /**
+   * Close the stream quietly without throwing any IO exception.
+   *
+   * @param closeable the stream to close, accept null
+   */
+  public static void closeQuietly(Closeable closeable) {
+    if (closeable != null) {
+      try {
+        closeable.close();
+      } catch (IOException ex) {
+        LOG.log(Level.FINE, null, ex);
+      }
+    }
+  }
 }
