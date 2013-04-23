@@ -112,7 +112,7 @@ public class Prettify {
           + "abstract,assert,boolean,byte,extends,final,finally,implements,import,"
           + "instanceof,interface,null,native,package,strictfp,super,synchronized,"
           + "throws,transient";
-  public static final String RUST_KEYWORDS = FLOW_CONTROL_KEYWORDS + "as,assert,const,copy,drop,"
+  public static final String RUST_KEYWORDS = FLOW_CONTROL_KEYWORDS + "," + "as,assert,const,copy,drop,"
           + "enum,extern,fail,false,fn,impl,let,log,loop,match,mod,move,mut,priv,"
           + "pub,pure,ref,self,static,struct,true,trait,type,unsafe,use";
   public static final String CSHARP_KEYWORDS = JAVA_KEYWORDS + ","
